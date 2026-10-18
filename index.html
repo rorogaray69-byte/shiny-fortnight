@@ -1,0 +1,4820 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="2026-2027学年秋季学期研究生课表 · 实时查看今天与整周的课">
+<title>2026-2027学年秋季学期研究生课表</title>
+<style>
+/* ============================================================
+   设计变量 —— 浅色为默认，深色由 prefers-color-scheme / data-theme 覆盖
+   ============================================================ */
+:root {
+  --bg:            #f4f5f7;
+  --bg-accent:     #eceef2;
+  --surface:       #ffffff;
+  --surface-2:     #f7f8fa;
+  --surface-3:     #eef0f4;
+  --border:        #e2e5ea;
+  --border-strong: #cfd4dc;
+  --text:          #1b1f26;
+  --text-2:        #5b6270;
+  --text-3:        #8b93a1;
+  --shadow-sm:     0 1px 2px rgba(16,20,28,.06), 0 1px 3px rgba(16,20,28,.04);
+  --shadow-md:     0 2px 6px rgba(16,20,28,.08), 0 8px 24px rgba(16,20,28,.08);
+  --shadow-lg:     0 8px 24px rgba(16,20,28,.14), 0 24px 60px rgba(16,20,28,.16);
+  --accent:        #2f6fd0;
+  --accent-soft:   #e8f0fc;
+  --live:          #d94a3d;
+  --live-soft:     #fdecea;
+  --warn:          #b7791f;
+  --warn-soft:     #fdf6e3;
+  --past-opacity:  .45;
+  --radius:        14px;
+  --radius-sm:     9px;
+  --row-h:         74px;
+  --grid-gap:      5px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+          "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    --bg:#0f1216; --bg-accent:#0b0e11; --surface:#171b21; --surface-2:#1c2128;
+    --surface-3:#222831; --border:#282f38; --border-strong:#39424e;
+    --text:#e8eaee; --text-2:#a3abb8; --text-3:#737d8c;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 2px 8px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.4);
+    --shadow-lg:0 10px 30px rgba(0,0,0,.55),0 30px 70px rgba(0,0,0,.5);
+    --accent:#5b95e8; --accent-soft:#17243a; --live:#ef6b5e; --live-soft:#2c1a19;
+    --warn:#e0b055; --warn-soft:#2a2314; --past-opacity:.4;
+  }
+}
+html[data-theme="dark"] {
+  --bg:#0f1216; --bg-accent:#0b0e11; --surface:#171b21; --surface-2:#1c2128;
+  --surface-3:#222831; --border:#282f38; --border-strong:#39424e;
+  --text:#e8eaee; --text-2:#a3abb8; --text-3:#737d8c;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 2px 8px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.4);
+  --shadow-lg:0 10px 30px rgba(0,0,0,.55),0 30px 70px rgba(0,0,0,.5);
+  --accent:#5b95e8; --accent-soft:#17243a; --live:#ef6b5e; --live-soft:#2c1a19;
+  --warn:#e0b055; --warn-soft:#2a2314; --past-opacity:.4;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a { color: var(--accent); }
+::selection { background: var(--accent); color: #fff; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 72px; }
+
+/* ============================ 顶栏 ============================ */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .topbar { background: var(--surface); }
+}
+.topbar-inner { max-width: 1180px; margin: 0 auto; padding: 12px 16px 10px; }
+.title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 {
+  font-size: 19px; font-weight: 700; margin: 0; letter-spacing: -.01em;
+  flex: 1 1 auto; min-width: 0;
+}
+h1 .sub { font-weight: 500; color: var(--text-3); font-size: 13px; margin-left: 8px; white-space: nowrap; }
+.icon-btn {
+  flex: 0 0 auto;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 10px; width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px; line-height: 1; transition: background .15s, border-color .15s;
+}
+.icon-btn:hover { background: var(--surface-3); border-color: var(--border-strong); }
+.icon-btn:active { transform: scale(.95); }
+
+/* ---------- 周次条 ---------- */
+.weekbar { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.weekbar .spacer { flex: 1 1 auto; }
+.wb-btn {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 7px 12px; font-size: 13.5px; font-weight: 500; white-space: nowrap;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.wb-btn:hover { background: var(--surface-3); border-color: var(--border-strong); }
+.wb-btn:disabled { opacity: .4; cursor: not-allowed; }
+.wb-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.wb-btn.primary:hover { filter: brightness(1.08); }
+.week-label {
+  font-weight: 700; font-size: 15px; min-width: 76px; text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.week-label .range { display: block; font-weight: 500; font-size: 11.5px; color: var(--text-3); }
+select.wk-select {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 7px 8px; font-size: 14px;
+}
+.badge-now {
+  font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 99px;
+  background: var(--accent-soft); color: var(--accent); white-space: nowrap;
+}
+.badge-now[hidden] { display: none; }
+
+/* ---------- 搜索 ---------- */
+.searchbar { position: relative; margin-top: 10px; }
+.searchbar input {
+  width: 100%; padding: 10px 38px 10px 36px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 11px; font-size: 14.5px; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.searchbar input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.searchbar .s-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text-3); font-size: 14px; pointer-events: none;
+}
+.searchbar .s-clear {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  border: 0; background: transparent; color: var(--text-3);
+  font-size: 18px; line-height: 1; padding: 4px 6px; border-radius: 6px; display: none;
+}
+.searchbar .s-clear:hover { background: var(--surface-3); color: var(--text); }
+.searchbar.has-value .s-clear { display: block; }
+
+/* 搜索结果下拉 */
+.search-results {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 45;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; box-shadow: var(--shadow-lg);
+  max-height: min(52vh, 420px); overflow-y: auto; padding: 6px;
+}
+.search-results[hidden] { display: none; }
+.sr-item {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 9px 10px; border: 0; background: transparent; border-radius: 9px;
+  text-align: left;
+}
+.sr-item:hover, .sr-item.active { background: var(--surface-2); }
+.sr-dot { width: 9px; height: 9px; border-radius: 99px; flex: 0 0 auto; }
+.sr-main { flex: 1 1 auto; min-width: 0; }
+.sr-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-meta { font-size: 12px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-code { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+.sr-empty { padding: 14px 12px; color: var(--text-3); font-size: 13.5px; text-align: center; }
+
+/* ============================ Tabs ============================ */
+.tabs {
+  display: inline-flex; gap: 4px; margin-top: 12px;
+  background: var(--surface-3); padding: 4px; border-radius: 12px;
+}
+.tab {
+  border: 0; background: transparent; border-radius: 9px;
+  padding: 8px 20px; font-size: 14.5px; font-weight: 600; color: var(--text-2);
+  transition: background .15s, color .15s; white-space: nowrap;
+}
+.tab[aria-selected="true"] {
+  background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm);
+}
+
+/* ============================ 面板通用 ============================ */
+.panel { padding-top: 18px; }
+.panel[hidden] { display: none; }
+.empty {
+  text-align: center; padding: 64px 20px; color: var(--text-3);
+  background: var(--surface); border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+}
+.empty .big { font-size: 40px; margin-bottom: 10px; }
+.empty .t { font-size: 17px; font-weight: 600; color: var(--text-2); }
+.empty .d { font-size: 13.5px; margin-top: 6px; }
+
+/* ============================ 今天视图 ============================ */
+.today-head {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.today-date { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.today-week { font-size: 13.5px; color: var(--text-2); }
+.today-week b { color: var(--accent); }
+.now-banner {
+  display: flex; align-items: center; gap: 10px;
+  margin: -4px 0 14px; padding: 11px 14px; border-radius: var(--radius-sm);
+  font-size: 13.5px; font-weight: 600;
+  background: var(--accent-soft); color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.now-banner.live { background: var(--live-soft); color: var(--live);
+  border-color: color-mix(in srgb, var(--live) 26%, transparent); }
+.now-banner[hidden] { display: none; }
+.now-banner .pulse-dot {
+  width: 8px; height: 8px; border-radius: 99px; background: currentColor; flex: 0 0 auto;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.now-banner .spacer { flex: 1 1 auto; }
+.now-banner .tick { font-variant-numeric: tabular-nums; font-weight: 700; }
+.now-banner .go {
+  border: 0; background: transparent; color: inherit; text-decoration: underline;
+  font-size: 12.5px; font-weight: 600; padding: 0;
+}
+
+.cards { display: flex; flex-direction: column; gap: 12px; }
+.card {
+  position: relative; display: flex; gap: 0; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s, opacity .2s;
+}
+.card::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: var(--c, var(--accent));
+}
+.card-body { flex: 1 1 auto; min-width: 0; padding: 14px 16px 14px 20px; }
+.card-top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.card-period {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  padding: 2px 8px; border-radius: 6px;
+  background: color-mix(in srgb, var(--c, var(--accent)) 14%, transparent);
+  color: var(--c, var(--accent));
+}
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .card-period { background: var(--surface-3); }
+}
+.card-time { font-family: var(--mono); font-size: 13px; color: var(--text-2); font-weight: 600; }
+.chip {
+  font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 99px;
+  background: var(--surface-3); color: var(--text-2); white-space: nowrap;
+}
+.chip.campus-east { background: #e6f5f6; color: #1d7c83; }
+html[data-theme="dark"] .chip.campus-east { background: #16302f; color: #6fc9d0; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] .chip.campus-east { background: #16302f; color: #6fc9d0; }
+}
+.chip.live { background: var(--live-soft); color: var(--live); }
+.card-name {
+  font-size: 17px; font-weight: 700; margin: 7px 0 0; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-meta {
+  display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 7px;
+  font-size: 13.5px; color: var(--text-2);
+}
+.card-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.card-meta .k { color: var(--text-3); font-size: 12.5px; }
+.card-note { margin-top: 8px; font-size: 12.5px; color: var(--text-3); }
+.card-actions { flex: 0 0 auto; display: flex; align-items: flex-start; padding: 14px 14px 0 0; }
+
+.card.is-past { opacity: var(--past-opacity); }
+.card.is-past .card-name { text-decoration: none; }
+
+/* —— 进行中：左侧色条加粗 + 呼吸脉冲 —— */
+.card.is-live {
+  border-color: color-mix(in srgb, var(--live) 55%, var(--border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 14%, transparent), var(--shadow-md);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+.card.is-live::before { width: 7px; background: var(--live); }
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 12%, transparent), var(--shadow-sm); }
+  50%      { box-shadow: 0 0 0 7px color-mix(in srgb, var(--live) 20%, transparent), var(--shadow-md); }
+}
+@keyframes pulse { 0%,100% { opacity:1; transform: scale(1);} 50% { opacity:.35; transform: scale(.82);} }
+.live-bar {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px;
+  font-size: 13px; font-weight: 700; color: var(--live);
+  font-variant-numeric: tabular-nums;
+}
+.live-bar .track {
+  flex: 1 1 auto; height: 5px; border-radius: 99px; background: var(--live-soft);
+  overflow: hidden; max-width: 320px;
+}
+.live-bar .fill { height: 100%; background: var(--live); border-radius: 99px; transition: width .5s linear; }
+
+/* 冲突提示（真有时间冲突时才是警示色） */
+.conflict {
+  margin-top: 9px; padding: 8px 11px; border-radius: 8px;
+  background: var(--warn-soft); color: var(--warn);
+  border: 1px solid color-mix(in srgb, var(--warn) 26%, transparent);
+  font-size: 12.5px; font-weight: 600;
+}
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .conflict { background: var(--surface-3); }
+}
+
+/* 一般性提示信息（不是警告，不要用警示色） */
+.note {
+  margin-top: 9px; padding: 8px 11px; border-radius: 8px;
+  background: var(--surface-3); color: var(--text-2);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+}
+
+/* ============================ 整周视图 ============================ */
+.week-toolbar {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 12px; font-size: 13.5px; color: var(--text-2);
+}
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch .track {
+  width: 38px; height: 22px; border-radius: 99px; background: var(--border-strong);
+  position: relative; transition: background .18s; flex: 0 0 auto;
+}
+.switch .track::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+  border-radius: 99px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  transition: transform .18s;
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { transform: translateX(16px); }
+.switch input:focus-visible + .track { box-shadow: 0 0 0 3px var(--accent-soft); }
+
+.grid-scroll {
+  overflow-x: auto; overflow-y: visible;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-sm);
+  -webkit-overflow-scrolling: touch;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 62px repeat(7, minmax(122px, 1fr));
+  /* 第 1 行是表头；其后 13 行严格对应 13 个节次。课程块用 grid-row 显式铺在这些行上，
+     所以行高不会被内容撑大，节次与课程块永远对齐。 */
+  grid-template-rows: auto repeat(13, minmax(var(--row-h), auto));
+  min-width: 100%;
+}
+.grid .corner, .grid .day-head, .grid .period-head, .grid .cell {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+/* 行头（节次列）—— 窄屏 sticky */
+.grid .period-head {
+  position: sticky; left: 0; z-index: 6;
+  background: var(--surface-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 4px 2px; gap: 1px;
+}
+.grid .period-head .n { font-size: 15px; font-weight: 800; color: var(--text-2); line-height: 1; }
+.grid .period-head .t { font-family: var(--mono); font-size: 9.5px; color: var(--text-3); line-height: 1.25; text-align: center; }
+.grid .corner {
+  position: sticky; left: 0; z-index: 8; top: 0;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10.5px; color: var(--text-3); font-weight: 600;
+}
+.grid .day-head {
+  position: sticky; top: 0; z-index: 7;
+  background: var(--surface-2);
+  padding: 8px 6px 7px; text-align: center;
+}
+.grid .day-head .dn { font-size: 14px; font-weight: 700; }
+.grid .day-head .dd { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.grid .day-head.is-today { background: var(--accent-soft); }
+.grid .day-head.is-today .dn { color: var(--accent); }
+.grid .day-head.is-today .dd { color: var(--accent); font-weight: 700; }
+.grid .day-head.is-weekend .dn { color: var(--text-2); }
+
+.grid .cell {
+  position: relative; padding: 0; display: block;
+  min-height: var(--row-h);
+}
+
+/* 课程块容器：由 JS 用 grid-column / grid-row:<start> / span <n> 精确定位。
+   容器横向 flex —— 同一时段有两门课（如工程热力学 + 气固表面反应）时并排显示，互不遮挡。 */
+.grid .slot {
+  display: flex; gap: 3px; padding: var(--grid-gap);
+  min-width: 0; pointer-events: none; z-index: 1;
+}
+.grid .slot > .blk { pointer-events: auto; flex: 1 1 0; width: auto; min-width: 0; }
+.grid .cell.is-today-col { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .grid .cell.is-today-col { background: var(--surface-2); }
+}
+.grid .cell.is-empty { color: transparent; }
+.grid .cell .slot-hint {
+  position: absolute; inset: auto 6px 4px auto; font-size: 10px; color: var(--border-strong);
+}
+
+.blk {
+  position: relative; flex: 1 1 auto; min-height: 0;
+  border: 0; text-align: left; width: 100%;
+  border-radius: 9px; padding: 6px 8px;
+  background: color-mix(in srgb, var(--c) 15%, var(--surface));
+  border-left: 4px solid var(--c);
+  color: var(--text); overflow: hidden;
+  display: flex; flex-direction: column; gap: 2px;
+  transition: transform .12s, box-shadow .15s, filter .15s;
+}
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .blk { background: var(--surface-2); }
+}
+.blk:hover { filter: brightness(1.04); box-shadow: var(--shadow-md); transform: translateY(-1px); z-index: 2; }
+.blk:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.blk .bn {
+  font-size: 12.5px; font-weight: 700; line-height: 1.25;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.blk .br { font-size: 11px; color: var(--text-2); line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.blk .bt { font-family: var(--mono); font-size: 10px; color: var(--text-3); }
+.blk .bw { font-size: 10px; color: var(--c); font-weight: 700; }
+.blk.is-live {
+  box-shadow: 0 0 0 2px var(--live), var(--shadow-md);
+  animation: breathe-sm 2s ease-in-out infinite;
+}
+@keyframes breathe-sm {
+  0%,100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--live) 70%, transparent), var(--shadow-sm); }
+  50%     { box-shadow: 0 0 0 5px color-mix(in srgb, var(--live) 28%, transparent), var(--shadow-md); }
+}
+/* 非本周课程：降透明度 + 虚线描边 —— 保证相邻的深红系块（工程热力学 #c00000 /
+   习近平专题 #c0392b）在"显示非本周"模式下也能区分开 */
+.blk.is-offweek {
+  opacity: .42;
+  filter: grayscale(.6);
+  outline: 1px dashed var(--border-strong);
+  outline-offset: -1px;
+}
+.blk.is-dim { opacity: .3; }
+.blk.is-match { box-shadow: 0 0 0 2.5px var(--accent), var(--shadow-md); }
+.blk.is-dimmed-by-search { opacity: .22; filter: grayscale(.7); }
+.blk .tiny-badge {
+  position: absolute; top: 4px; right: 5px; font-size: 9.5px; font-weight: 700;
+  padding: 1px 4px; border-radius: 4px; background: var(--live); color: #fff;
+}
+.blk .east-dot {
+  position: absolute; top: 4px; right: 5px; width: 7px; height: 7px; border-radius: 99px;
+  background: #3aa0a8;
+}
+.legend-note { margin-top: 10px; font-size: 12.5px; color: var(--text-3); display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ============================ 详情弹层 ============================ */
+.overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(10,14,20,.5); backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  animation: fade .16s ease-out;
+}
+.overlay[hidden] { display: none; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: min(680px, 100%); max-height: min(86vh, 760px);
+  background: var(--surface); border-radius: 18px;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: rise .18s ease-out;
+}
+@keyframes rise { from { transform: translateY(10px) scale(.99); opacity: .6; } to { transform: none; opacity: 1; } }
+.modal-head {
+  padding: 18px 20px 14px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 12px; align-items: flex-start; position: relative;
+}
+.modal-head::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: var(--c, var(--accent));
+}
+.modal-title { font-size: 19px; font-weight: 800; margin: 0; letter-spacing: -.01em; flex: 1 1 auto; }
+.modal-sub { font-family: var(--mono); font-size: 12.5px; color: var(--text-3); margin-top: 5px; }
+.modal-body { padding: 16px 20px 20px; overflow-y: auto; }
+.kv { display: grid; grid-template-columns: 76px 1fr; gap: 8px 12px; margin-bottom: 18px; font-size: 14px; }
+.kv .k { color: var(--text-3); font-size: 13px; padding-top: 1px; }
+.kv .v { min-width: 0; }
+.section-title {
+  font-size: 12.5px; font-weight: 700; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: .06em; margin: 0 0 9px;
+}
+table.detail { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.detail th {
+  text-align: left; font-weight: 600; color: var(--text-3); font-size: 12px;
+  padding: 0 8px 7px 0; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+table.detail td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.detail tr:last-child td { border-bottom: 0; }
+table.detail td.wk { font-family: var(--mono); white-space: nowrap; font-weight: 600; }
+table.detail td.tm { font-family: var(--mono); white-space: nowrap; color: var(--text-2); }
+table.detail tr.is-current-week td { background: var(--accent-soft); }
+.pill {
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px;
+  border-radius: 99px; background: var(--surface-3); color: var(--text-2);
+}
+.pill.odd { background: #fdeeee; color: #b8453a; }
+.pill.even { background: #eaf1fd; color: #2f6fd0; }
+html[data-theme="dark"] .pill.odd { background:#3a1e1c; color:#f09086; }
+html[data-theme="dark"] .pill.even { background:#17243a; color:#7fadee; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] .pill.odd { background:#3a1e1c; color:#f09086; }
+  html[data-theme="auto"] .pill.even { background:#17243a; color:#7fadee; }
+}
+.class-picker { display: flex; flex-wrap: wrap; gap: 7px; }
+.class-picker button {
+  border: 1px solid var(--border); background: var(--surface-2); border-radius: 8px;
+  padding: 5px 11px; font-size: 13px; color: var(--text-2);
+}
+.class-picker button:hover { background: var(--surface-3); }
+.class-picker button.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+/* ============================ 设置 / 图例 ============================ */
+.sheet-backdrop {
+  position: fixed; inset: 0; z-index: 55; background: rgba(10,14,20,.42);
+  animation: fade .16s ease-out;
+}
+.sheet-backdrop[hidden] { display: none; }
+.sheet {
+  position: fixed; right: 16px; top: 70px; z-index: 56;
+  width: min(340px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 16px;
+  animation: rise .16s ease-out;
+}
+.sheet[hidden] { display: none; }
+.sheet h3 { margin: 0 0 4px; font-size: 15px; }
+.sheet .hint { font-size: 12.5px; color: var(--text-3); margin: 0 0 12px; line-height: 1.45; }
+.sheet label.fl { display: block; font-size: 12.5px; color: var(--text-2); margin: 12px 0 5px; font-weight: 600; }
+.sheet input[type="date"] {
+  width: 100%; padding: 8px 10px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 9px; font-size: 14px;
+}
+.sheet .row { display: flex; gap: 8px; margin-top: 14px; }
+.sheet .row button { flex: 1 1 auto; }
+.legend { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 13px; }
+.legend h4 { margin: 0 0 9px; font-size: 12.5px; color: var(--text-3); font-weight: 700; letter-spacing: .05em; }
+.legend-item {
+  display: flex; align-items: center; gap: 9px; padding: 5px 6px; border-radius: 8px;
+  width: 100%; border: 0; background: transparent; text-align: left; font-size: 13px;
+}
+.legend-item:hover { background: var(--surface-2); }
+.legend-dot { width: 11px; height: 11px; border-radius: 4px; flex: 0 0 auto; }
+.legend-item .lg-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend-item .lg-code { font-family: var(--mono); font-size: 10.5px; color: var(--text-3); }
+
+/* ============================ 页脚 / toast ============================ */
+.foot {
+  margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-3); display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between;
+}
+.toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+  background: var(--text); color: var(--bg); padding: 9px 16px; border-radius: 99px;
+  font-size: 13px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 80;
+  animation: rise .18s ease-out; pointer-events: none;
+}
+.toast[hidden] { display: none; }
+
+/* ============================ 窄屏 ============================ */
+@media (max-width: 700px) {
+  .wrap { padding: 0 10px 60px; }
+  .topbar-inner { padding: 10px 10px 9px; }
+  h1 { font-size: 16px; }
+  h1 .sub { display: none; }
+  .weekbar { gap: 6px; }
+  .wb-btn { padding: 7px 9px; font-size: 13px; }
+  .week-label { min-width: 60px; font-size: 14px; }
+  .tab { padding: 8px 16px; }
+  .grid { grid-template-columns: 50px repeat(7, minmax(112px, 1fr)); }
+  .grid .period-head .t { font-size: 8.5px; }
+  .today-date { font-size: 22px; }
+  .card-body { padding: 13px 13px 13px 17px; }
+  .card-name { font-size: 16px; }
+  .card-actions { padding: 12px 10px 0 0; }
+  .modal { max-height: 90vh; border-radius: 16px; }
+  .kv { grid-template-columns: 62px 1fr; font-size: 13.5px; }
+  .sheet { right: 8px; left: 8px; width: auto; top: 62px; }
+  .overlay { padding: 10px; }
+  :root { --row-h: 66px; }
+}
+@media print {
+  .topbar { position: static; }
+  .icon-btn, .tabs, .weekbar, .searchbar, .card-actions, .week-toolbar { display: none !important; }
+  .panel[hidden] { display: block !important; }
+  body { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="title-row">
+      <h1>2026-2027学年秋季学期研究生课表<span class="sub" id="semSub"></span></h1>
+      <button class="icon-btn" id="btnLocate" title="跳回本周" aria-label="跳回本周">📅</button>
+      <button class="icon-btn" id="btnTheme" title="切换深/浅色" aria-label="切换深浅色">🌗</button>
+      <button class="icon-btn" id="btnSettings" title="设置与图例" aria-label="设置" aria-expanded="false">⚙️</button>
+    </div>
+
+    <div class="weekbar">
+      <button class="wb-btn" id="wkPrev" title="上一周" aria-label="上一周">‹</button>
+      <span class="week-label"><span id="wkLabelNum">第 1 周</span><span class="range" id="wkRange"></span></span>
+      <button class="wb-btn" id="wkNext" title="下一周" aria-label="下一周">›</button>
+      <button class="wb-btn primary" id="wkNow">本周</button>
+      <select class="wk-select" id="wkSelect" aria-label="选择教学周"></select>
+      <span class="badge-now" id="wkBadge" hidden>当前是第 <b id="wkBadgeN">1</b> 周</span>
+      <span class="spacer"></span>
+      <span class="badge-now" id="clockBadge" title="本机当前时间"></span>
+    </div>
+
+    <div class="searchbar" id="searchbar">
+      <span class="s-icon" aria-hidden="true">🔍</span>
+      <input id="q" type="search" placeholder="搜索课程 / 教师 / 教室 / 课码…" autocomplete="off"
+             role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="搜索课程">
+      <button class="s-clear" id="qClear" aria-label="清空搜索">×</button>
+      <div class="search-results" id="searchResults" role="listbox" hidden></div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="视图切换">
+      <button class="tab" id="tabToday" role="tab" aria-selected="true"  aria-controls="panelToday">今天</button>
+      <button class="tab" id="tabWeek"  role="tab" aria-selected="false" aria-controls="panelWeek">整周</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- ==================== 今天 ==================== -->
+  <main class="panel" id="panelToday" role="tabpanel" aria-labelledby="tabToday">
+    <div class="today-head">
+      <div class="today-date" id="todayDate">—</div>
+      <div class="today-week" id="todayWeek"></div>
+    </div>
+    <div class="now-banner" id="nowBanner" hidden></div>
+    <div class="cards" id="todayCards"></div>
+  </main>
+
+  <!-- ==================== 整周 ==================== -->
+  <main class="panel" id="panelWeek" role="tabpanel" aria-labelledby="tabWeek" hidden>
+    <div class="week-toolbar">
+      <label class="switch" title="打开后，非本周的课会以半透明置灰显示">
+        <input type="checkbox" id="showOff">
+        <span class="track"></span>
+        <span>显示非本周课程（置灰）</span>
+      </label>
+      <span class="spacer" style="flex:1 1 auto"></span>
+      <span id="weekSummary"></span>
+    </div>
+    <div class="grid-scroll" id="gridScroll">
+      <div class="grid" id="grid" role="grid" aria-label="整周课表"></div>
+    </div>
+    <div class="legend-note">
+      <span>💡 点击任意课程块查看详情</span>
+      <span>🟦 蓝色描边 = 搜索命中</span>
+      <span>🟥 红框呼吸 = 正在上课</span>
+      <span>窄屏可左右滑动表格</span>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <span>数据源：data.json · 生成时间 2026-10-16 12:01</span>
+    <span id="footCount"></span>
+  </footer>
+</div>
+
+<!-- ==================== 详情弹层 ==================== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="modal-head" id="modalHead">
+      <div style="flex:1 1 auto;min-width:0">
+        <h2 class="modal-title" id="mTitle">—</h2>
+        <div class="modal-sub" id="mCode"></div>
+      </div>
+      <button class="icon-btn" id="mClose" aria-label="关闭">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- ==================== 设置面板 ==================== -->
+<div class="sheet-backdrop" id="sheetBg" hidden></div>
+<aside class="sheet" id="sheet" hidden aria-label="设置与图例">
+  <h3>设置</h3>
+  <p class="hint">所有设置仅保存在本机浏览器（localStorage），不会上传。</p>
+
+  <label class="fl" for="termStart">第 1 教学周的周一</label>
+  <input type="date" id="termStart">
+  <p class="hint" style="margin:6px 0 0">默认 2026-08-31。改这里会影响「本周」的判定与周次计算。</p>
+
+  <label class="fl" for="dayOverride">今天视图显示哪一天</label>
+  <select class="wk-select" id="dayOverride" style="width:100%"></select>
+
+  <label class="fl" for="themeSel">外观</label>
+  <select class="wk-select" id="themeSel" style="width:100%">
+    <option value="auto">跟随系统</option>
+    <option value="light">浅色</option>
+    <option value="dark">深色</option>
+  </select>
+
+  <div class="row">
+    <button class="wb-btn" id="btnReset">恢复默认</button>
+  </div>
+
+  <div class="legend" id="legend"></div>
+</aside>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ==========================================================================
+   2026-2027 秋季学期研究生课表 —— 单文件离线课表应用
+   纯原生 JS，无框架无 CDN。数据在构建时内联为 RAW_DATA。
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     1. 内联数据（由 build_html.py 注入）
+     ------------------------------------------------------------------ */
+  var RAW_DATA = {
+ "title": "2026-2027学年秋季学期研究生课表",
+ "term": "2026-2027学年秋季学期",
+ "source": "kebiao/source.xlsx#学期课表",
+ "days": [
+  "周一",
+  "周二",
+  "周三",
+  "周四",
+  "周五",
+  "周六",
+  "周日"
+ ],
+ "daysFull": [
+  "星期一",
+  "星期二",
+  "星期三",
+  "星期四",
+  "星期五",
+  "星期六",
+  "星期日"
+ ],
+ "periods": [
+  {
+   "period": 1,
+   "start": "08:30",
+   "end": "09:15",
+   "samples": 11,
+   "variants": {
+    "08:30-09:15": 11
+   }
+  },
+  {
+   "period": 2,
+   "start": "09:20",
+   "end": "10:05",
+   "samples": 20,
+   "variants": {
+    "09:20-10:05": 20,
+    "08:55-09:40": 4
+   }
+  },
+  {
+   "period": 3,
+   "start": "10:25",
+   "end": "11:10",
+   "samples": 18,
+   "variants": {
+    "10:25-11:10": 18,
+    "10:00-10:45": 4
+   }
+  },
+  {
+   "period": 4,
+   "start": "11:15",
+   "end": "12:00",
+   "samples": 18,
+   "variants": {
+    "11:15-12:00": 18,
+    "10:55-11:40": 4
+   }
+  },
+  {
+   "period": 5,
+   "start": "13:40",
+   "end": "14:25",
+   "samples": 4,
+   "variants": {
+    "13:40-14:25": 4
+   }
+  },
+  {
+   "period": 6,
+   "start": "14:30",
+   "end": "15:15",
+   "samples": 13,
+   "variants": {
+    "14:30-15:15": 13,
+    "14:55-15:40": 5
+   }
+  },
+  {
+   "period": 7,
+   "start": "15:30",
+   "end": "16:15",
+   "samples": 20,
+   "variants": {
+    "15:30-16:15": 20,
+    "16:00-16:45": 5
+   }
+  },
+  {
+   "period": 8,
+   "start": "16:30",
+   "end": "17:15",
+   "samples": 20,
+   "variants": {
+    "16:30-17:15": 20,
+    "16:55-17:40": 5
+   }
+  },
+  {
+   "period": 9,
+   "start": "18:20",
+   "end": "19:05",
+   "samples": 7,
+   "variants": {
+    "18:20-19:05": 7
+   }
+  },
+  {
+   "period": 10,
+   "start": "19:10",
+   "end": "19:55",
+   "samples": 7,
+   "variants": {
+    "19:10-19:55": 7
+   }
+  },
+  {
+   "period": 11,
+   "start": "20:00",
+   "end": "20:45",
+   "samples": 4,
+   "variants": {
+    "20:00-20:45": 4
+   }
+  },
+  {
+   "period": 12,
+   "start": "20:50",
+   "end": "21:35",
+   "samples": 1,
+   "variants": {
+    "20:50-21:35": 1
+   }
+  },
+  {
+   "period": 13,
+   "start": null,
+   "end": null,
+   "samples": 0,
+   "variants": {}
+  }
+ ],
+ "courses": [
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 1,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c01",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第1周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 1,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c02",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第2周：段远源"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 1,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "08:55-11:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40"
+   ],
+   "id": "c03",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "S01230036",
+   "name": "光伏科学与工程",
+   "day": 1,
+   "periodStart": 5,
+   "periodEnd": 8,
+   "periods": [
+    5,
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 5,
+     "to": 17,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "5-17周单双周",
+   "teacher": "杨培志",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "13:40-17:15",
+   "raw": "5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  13:40-14:25 | 5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  13:40-14:25",
+    "5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "5-17周单双周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c04",
+   "colorKey": "pv",
+   "color": "#e07b39",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "杨培志"
+   ],
+   "notes": "第5-17周：杨培志"
+  },
+  {
+   "code": "S01230036",
+   "name": "光伏科学与工程",
+   "day": 1,
+   "periodStart": 5,
+   "periodEnd": 6,
+   "periods": [
+    5,
+    6
+   ],
+   "weekRanges": [
+    {
+     "from": 18,
+     "to": 18,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "18周",
+   "teacher": "杨培志",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "13:40-15:15",
+   "raw": "18周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  13:40-14:25 | 18周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+   "rawLines": [
+    "18周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  13:40-14:25",
+    "18周  杨培志  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15"
+   ],
+   "id": "c05",
+   "colorKey": "pv",
+   "color": "#e07b39",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "杨培志"
+   ],
+   "notes": "第18周：杨培志"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 1,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c06",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第1周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 1,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c07",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第2周：段远源"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 1,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "14:55-17:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40"
+   ],
+   "id": "c08",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "A02230002",
+   "name": "西南联大历史文化",
+   "day": 1,
+   "periodStart": 9,
+   "periodEnd": 10,
+   "periods": [
+    9,
+    10
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 18,
+     "parity": "odd"
+    }
+   ],
+   "weekSpec": "1-18周单周",
+   "teacher": "李红英",
+   "room": "田家炳楼416（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-19:55",
+   "raw": "1-18周单周  李红英  田家炳楼416（报告厅）  云南师范大学一二一西南联大校区  18:20-19:05 | 1-18周单周  李红英  田家炳楼416（报告厅）  云南师范大学一二一西南联大校区  19:10-19:55",
+   "rawLines": [
+    "1-18周单周  李红英  田家炳楼416（报告厅）  云南师范大学一二一西南联大校区  18:20-19:05",
+    "1-18周单周  李红英  田家炳楼416（报告厅）  云南师范大学一二一西南联大校区  19:10-19:55"
+   ],
+   "id": "c09",
+   "colorKey": "swu",
+   "color": "#6ab04c",
+   "dayName": "周一",
+   "dayFull": "星期一",
+   "teacherList": [
+    "李红英"
+   ],
+   "notes": "第1-18周(单周)：李红英"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 11,
+     "to": 11,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "11周",
+   "teacher": "李维昌",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "11周  李维昌  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c10",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李维昌"
+   ],
+   "notes": "第11周：李维昌"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 10,
+     "to": 10,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "10周",
+   "teacher": "李雪章",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "10周  李雪章  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c11",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李雪章"
+   ],
+   "notes": "第10周：李雪章"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 15,
+     "to": 15,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "15周",
+   "teacher": "杨南丽",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "15周  杨南丽  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c12",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "杨南丽"
+   ],
+   "notes": "第15周：杨南丽"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 18,
+     "to": 18,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "18周",
+   "teacher": "王国梁",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "18周  王国梁  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c13",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "王国梁"
+   ],
+   "notes": "第18周：王国梁"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 16,
+     "to": 16,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "16周",
+   "teacher": "王新红",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "16周  王新红  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c14",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "王新红"
+   ],
+   "notes": "第16周：王新红"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 13,
+     "to": 13,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "13周",
+   "teacher": "胡玉荣",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "13周  胡玉荣  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c15",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "胡玉荣"
+   ],
+   "notes": "第13周：胡玉荣"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 17,
+     "to": 17,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "17周",
+   "teacher": "赵前杰",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "17周  赵前杰  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c16",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "赵前杰"
+   ],
+   "notes": "第17周：赵前杰"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 12,
+     "to": 12,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "12周",
+   "teacher": "阿剑波",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "12周  阿剑波  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c17",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "阿剑波"
+   ],
+   "notes": "第12周：阿剑波"
+  },
+  {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "day": 2,
+   "periodStart": 1,
+   "periodEnd": 4,
+   "periods": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 14,
+     "to": 14,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "14周",
+   "teacher": "黄艳",
+   "room": "物理楼209（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-12:00",
+   "raw": "14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15 | 14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05 | 14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10 | 14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  08:30-09:15",
+    "14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  09:20-10:05",
+    "14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  10:25-11:10",
+    "14周  黄艳  物理楼209（报告厅）  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c18",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "黄艳"
+   ],
+   "notes": "第14周：黄艳"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 2,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c19",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第1周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 2,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c20",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第2周：段远源"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 2,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "08:55-11:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40"
+   ],
+   "id": "c21",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 2,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c22",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第1周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 2,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "2周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c23",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第2周：段远源"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 2,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "14:55-17:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40"
+   ],
+   "id": "c24",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 11,
+     "to": 11,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "11周",
+   "teacher": "李雪章",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "11周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 11周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "11周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "11周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c25",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李雪章"
+   ],
+   "notes": "第11周：李雪章"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 12,
+     "to": 12,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "12周",
+   "teacher": "李雪章",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "12周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 12周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "12周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "12周  李雪章  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c26",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "李雪章"
+   ],
+   "notes": "第12周：李雪章"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 17,
+     "to": 17,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "17周",
+   "teacher": "王国梁",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "17周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 17周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "17周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "17周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c27",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "王国梁"
+   ],
+   "notes": "第17周：王国梁"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 18,
+     "to": 18,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "18周",
+   "teacher": "王国梁",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "18周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 18周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "18周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "18周  王国梁  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c28",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "王国梁"
+   ],
+   "notes": "第18周：王国梁"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 15,
+     "to": 15,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "15周",
+   "teacher": "胡玉荣",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "15周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 15周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "15周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "15周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c29",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "胡玉荣"
+   ],
+   "notes": "第15周：胡玉荣"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 16,
+     "to": 16,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "16周",
+   "teacher": "胡玉荣",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "16周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 16周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "16周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "16周  胡玉荣  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c30",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "胡玉荣"
+   ],
+   "notes": "第16周：胡玉荣"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 13,
+     "to": 13,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "13周",
+   "teacher": "赵前杰",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "13周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 13周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "13周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "13周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c31",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "赵前杰"
+   ],
+   "notes": "第13周：赵前杰"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 14,
+     "to": 14,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "14周",
+   "teacher": "赵前杰",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "14周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 14周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "14周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "14周  赵前杰  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c32",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "赵前杰"
+   ],
+   "notes": "第14周：赵前杰"
+  },
+  {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "day": 2,
+   "periodStart": 7,
+   "periodEnd": 8,
+   "periods": [
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 10,
+     "to": 10,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "10周",
+   "teacher": "阿剑波",
+   "room": "物理楼201（报告厅）",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "15:30-17:15",
+   "raw": "10周  阿剑波  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15 | 10周  阿剑波  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "10周  阿剑波  物理楼201（报告厅）  云南师范大学一二一西南联大校区  15:30-16:15",
+    "10周  阿剑波  物理楼201（报告厅）  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c33",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "dayName": "周二",
+   "dayFull": "星期二",
+   "teacherList": [
+    "阿剑波"
+   ],
+   "notes": "第10周：阿剑波"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 3,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "1周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c34",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第1周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 3,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c35",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第2周：李明"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 3,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "08:55-11:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40"
+   ],
+   "id": "c36",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 3,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c37",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第2周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 3,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c38",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第1周：段远源"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 3,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 4,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "4周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "14:55-17:40",
+   "raw": "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45 | 4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40",
+   "rawLines": [
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45",
+    "4周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40"
+   ],
+   "id": "c39",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第4周：李振山"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 3,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 5,
+     "to": 8,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "5-8周单双周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "14:55-17:40",
+   "raw": "5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40 | 5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45 | 5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40",
+   "rawLines": [
+    "5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40",
+    "5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45",
+    "5-8周单双周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40"
+   ],
+   "id": "c40",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周三",
+   "dayFull": "星期三",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第5-8周：李振山"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 4,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c41",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第2周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 4,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c42",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第1周：段远源"
+  },
+  {
+   "code": "S01230190",
+   "name": "数值分析",
+   "day": 4,
+   "periodStart": 5,
+   "periodEnd": 8,
+   "periods": [
+    5,
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 3,
+     "to": 15,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "3-15周单双周",
+   "teacher": "李素华",
+   "room": "第一教学楼306",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "13:40-17:15",
+   "raw": "3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  13:40-14:25 | 3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  14:30-15:15 | 3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  15:30-16:15 | 3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  13:40-14:25",
+    "3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  14:30-15:15",
+    "3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  15:30-16:15",
+    "3-15周单双周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c43",
+   "colorKey": "numerical",
+   "color": "#d9a441",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "李素华"
+   ],
+   "notes": "第3-15周：李素华"
+  },
+  {
+   "code": "S01230190",
+   "name": "数值分析",
+   "day": 4,
+   "periodStart": 5,
+   "periodEnd": 6,
+   "periods": [
+    5,
+    6
+   ],
+   "weekRanges": [
+    {
+     "from": 16,
+     "to": 16,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "16周",
+   "teacher": "李素华",
+   "room": "第一教学楼306",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "13:40-15:15",
+   "raw": "16周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  13:40-14:25 | 16周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  14:30-15:15",
+   "rawLines": [
+    "16周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  13:40-14:25",
+    "16周  李素华  第一教学楼306  云南师范大学一二一西南联大校区  14:30-15:15"
+   ],
+   "id": "c44",
+   "colorKey": "numerical",
+   "color": "#d9a441",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "李素华"
+   ],
+   "notes": "第16周：李素华"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 4,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 2,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "2周",
+   "teacher": "李明",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "2周  李明  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c45",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "李明"
+   ],
+   "notes": "第2周：李明"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 4,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c46",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第1周：段远源"
+  },
+  {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "day": 4,
+   "periodStart": 9,
+   "periodEnd": 11,
+   "periods": [
+    9,
+    10,
+    11
+   ],
+   "weekRanges": [
+    {
+     "from": 13,
+     "to": 16,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "13-16周单双周",
+   "teacher": "李东方",
+   "room": "第一教学楼201",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-20:45",
+   "raw": "13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05 | 13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55 | 13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45",
+   "rawLines": [
+    "13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05",
+    "13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55",
+    "13-16周单双周  李东方  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45"
+   ],
+   "id": "c47",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "李东方"
+   ],
+   "notes": "第13-16周：李东方"
+  },
+  {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "day": 4,
+   "periodStart": 9,
+   "periodEnd": 11,
+   "periods": [
+    9,
+    10,
+    11
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 7,
+     "parity": "odd"
+    }
+   ],
+   "weekSpec": "1-7周单周",
+   "teacher": "杨兴卫",
+   "room": "第一教学楼201",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-20:45",
+   "raw": "1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05 | 1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55 | 1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45",
+   "rawLines": [
+    "1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05",
+    "1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55",
+    "1-7周单周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45"
+   ],
+   "id": "c48",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "杨兴卫"
+   ],
+   "notes": "第1-7周(单周)：杨兴卫"
+  },
+  {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "day": 4,
+   "periodStart": 9,
+   "periodEnd": 10,
+   "periods": [
+    9,
+    10
+   ],
+   "weekRanges": [
+    {
+     "from": 17,
+     "to": 17,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "17周",
+   "teacher": "杨兴卫",
+   "room": "第一教学楼201",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-19:55",
+   "raw": "17周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05 | 17周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55",
+   "rawLines": [
+    "17周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05",
+    "17周  杨兴卫  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55"
+   ],
+   "id": "c49",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "杨兴卫"
+   ],
+   "notes": "第17周：杨兴卫"
+  },
+  {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "day": 4,
+   "periodStart": 9,
+   "periodEnd": 12,
+   "periods": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "weekRanges": [
+    {
+     "from": 2,
+     "to": 8,
+     "parity": "even"
+    }
+   ],
+   "weekSpec": "2-8周双周",
+   "teacher": "杨海瑞",
+   "room": "第一教学楼201",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-21:35",
+   "raw": "2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05 | 2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55 | 2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45 | 2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  20:50-21:35",
+   "rawLines": [
+    "2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05",
+    "2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55",
+    "2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45",
+    "2-8周双周  杨海瑞  第一教学楼201  云南师范大学一二一西南联大校区  20:50-21:35"
+   ],
+   "id": "c50",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "杨海瑞"
+   ],
+   "notes": "第2-8周(双周)：杨海瑞"
+  },
+  {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "day": 4,
+   "periodStart": 9,
+   "periodEnd": 11,
+   "periods": [
+    9,
+    10,
+    11
+   ],
+   "weekRanges": [
+    {
+     "from": 9,
+     "to": 12,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "9-12周单双周",
+   "teacher": "段耀宗",
+   "room": "第一教学楼201",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-20:45",
+   "raw": "9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05 | 9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55 | 9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45",
+   "rawLines": [
+    "9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  18:20-19:05",
+    "9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  19:10-19:55",
+    "9-12周单双周  段耀宗  第一教学楼201  云南师范大学一二一西南联大校区  20:00-20:45"
+   ],
+   "id": "c51",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "dayName": "周四",
+   "dayFull": "星期四",
+   "teacherList": [
+    "段耀宗"
+   ],
+   "notes": "第9-12周：段耀宗"
+  },
+  {
+   "code": "S01230422",
+   "name": "英语读写",
+   "day": 5,
+   "periodStart": 1,
+   "periodEnd": 2,
+   "periods": [
+    1,
+    2
+   ],
+   "weekRanges": [
+    {
+     "from": 3,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "3-4周单双周",
+   "teacher": "杨素珍",
+   "room": "第一教学楼302",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-10:05",
+   "raw": "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  08:30-09:15 | 3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  09:20-10:05",
+   "rawLines": [
+    "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  08:30-09:15",
+    "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  09:20-10:05"
+   ],
+   "id": "c52",
+   "colorKey": "english",
+   "color": "#2f6fd0",
+   "dayName": "周五",
+   "dayFull": "星期五",
+   "teacherList": [
+    "杨素珍"
+   ],
+   "notes": "第3-4周：杨素珍"
+  },
+  {
+   "code": "S01230422",
+   "name": "英语读写",
+   "day": 5,
+   "periodStart": 1,
+   "periodEnd": 2,
+   "periods": [
+    1,
+    2
+   ],
+   "weekRanges": [
+    {
+     "from": 5,
+     "to": 18,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "5-18周单双周",
+   "teacher": "杨素珍",
+   "room": "第一教学楼302",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "08:30-10:05",
+   "raw": "5-18周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  08:30-09:15 | 5-18周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  09:20-10:05",
+   "rawLines": [
+    "5-18周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  08:30-09:15",
+    "5-18周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  09:20-10:05"
+   ],
+   "id": "c53",
+   "colorKey": "english",
+   "color": "#2f6fd0",
+   "dayName": "周五",
+   "dayFull": "星期五",
+   "teacherList": [
+    "杨素珍"
+   ],
+   "notes": "第5-18周：杨素珍"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 5,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "09:20-12:00",
+   "raw": "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00",
+   "rawLines": [
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  09:20-10:05",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  10:25-11:10",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  11:15-12:00"
+   ],
+   "id": "c54",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周五",
+   "dayFull": "星期五",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第1周：段远源"
+  },
+  {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "day": 5,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 1,
+     "to": 1,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "1周",
+   "teacher": "段远源",
+   "room": "第一教学楼301",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "14:30-17:15",
+   "raw": "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15 | 1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15",
+   "rawLines": [
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  14:30-15:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  15:30-16:15",
+    "1周  段远源  第一教学楼301  云南师范大学一二一西南联大校区  16:30-17:15"
+   ],
+   "id": "c55",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "dayName": "周五",
+   "dayFull": "星期五",
+   "teacherList": [
+    "段远源"
+   ],
+   "notes": "第1周：段远源"
+  },
+  {
+   "code": "S01230422",
+   "name": "英语读写",
+   "day": 5,
+   "periodStart": 9,
+   "periodEnd": 10,
+   "periods": [
+    9,
+    10
+   ],
+   "weekRanges": [
+    {
+     "from": 3,
+     "to": 4,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "3-4周单双周",
+   "teacher": "杨素珍",
+   "room": "第一教学楼302",
+   "campus": "云南师范大学一二一西南联大校区",
+   "time": "18:20-19:55",
+   "raw": "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  18:20-19:05 | 3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  19:10-19:55",
+   "rawLines": [
+    "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  18:20-19:05",
+    "3-4周单双周  杨素珍  第一教学楼302  云南师范大学一二一西南联大校区  19:10-19:55"
+   ],
+   "id": "c56",
+   "colorKey": "english",
+   "color": "#2f6fd0",
+   "dayName": "周五",
+   "dayFull": "星期五",
+   "teacherList": [
+    "杨素珍"
+   ],
+   "notes": "第3-4周：杨素珍"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 7,
+   "periodStart": 2,
+   "periodEnd": 4,
+   "periods": [
+    2,
+    3,
+    4
+   ],
+   "weekRanges": [
+    {
+     "from": 3,
+     "to": 3,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "3周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "08:55-11:40",
+   "raw": "3周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40 | 3周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45 | 3周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40",
+   "rawLines": [
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  08:55-09:40",
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  10:00-10:45",
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  10:55-11:40"
+   ],
+   "id": "c57",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周日",
+   "dayFull": "星期日",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第3周：李振山"
+  },
+  {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "day": 7,
+   "periodStart": 6,
+   "periodEnd": 8,
+   "periods": [
+    6,
+    7,
+    8
+   ],
+   "weekRanges": [
+    {
+     "from": 3,
+     "to": 3,
+     "parity": "all"
+    }
+   ],
+   "weekSpec": "3周",
+   "teacher": "李振山",
+   "room": "生物馆西楼302",
+   "campus": "云南大学东陆校区",
+   "time": "14:55-17:40",
+   "raw": "3周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40 | 3周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45 | 3周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40",
+   "rawLines": [
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  14:55-15:40",
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  16:00-16:45",
+    "3周  李振山  生物馆西楼302  云南大学东陆校区  16:55-17:40"
+   ],
+   "id": "c58",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "dayName": "周日",
+   "dayFull": "星期日",
+   "teacherList": [
+    "李振山"
+   ],
+   "notes": "第3周：李振山"
+  }
+ ],
+ "courseCatalog": {
+  "S01230165": {
+   "code": "S01230165",
+   "name": "*工程热力学理论及应用",
+   "label": "工程热力学",
+   "colorKey": "thermo",
+   "color": "#c00000",
+   "entryCount": 18,
+   "totalPeriods": 54,
+   "teachers": [
+    "李明",
+    "段远源"
+   ],
+   "rooms": [
+    "第一教学楼301"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "S01230200": {
+   "code": "S01230200",
+   "name": "新时代中国特色社会主义理论与实践",
+   "label": "新时代理论",
+   "colorKey": "socialism",
+   "color": "#d97757",
+   "entryCount": 9,
+   "totalPeriods": 36,
+   "teachers": [
+    "李维昌",
+    "李雪章",
+    "杨南丽",
+    "王国梁",
+    "王新红",
+    "胡玉荣",
+    "赵前杰",
+    "阿剑波",
+    "黄艳"
+   ],
+   "rooms": [
+    "物理楼209（报告厅）"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    2
+   ]
+  },
+  "S02250001": {
+   "code": "S02250001",
+   "name": "*气固表面反应与传递",
+   "label": "气固表面反应",
+   "colorKey": "gassolid",
+   "color": "#3aa0a8",
+   "entryCount": 9,
+   "totalPeriods": 27,
+   "teachers": [
+    "李振山"
+   ],
+   "rooms": [
+    "生物馆西楼302"
+   ],
+   "campuses": [
+    "云南大学东陆校区"
+   ],
+   "days": [
+    1,
+    2,
+    3,
+    7
+   ]
+  },
+  "S01230422": {
+   "code": "S01230422",
+   "name": "英语读写",
+   "label": "英语读写",
+   "colorKey": "english",
+   "color": "#2f6fd0",
+   "entryCount": 3,
+   "totalPeriods": 6,
+   "teachers": [
+    "杨素珍"
+   ],
+   "rooms": [
+    "第一教学楼302"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    5
+   ]
+  },
+  "S01230036": {
+   "code": "S01230036",
+   "name": "光伏科学与工程",
+   "label": "光伏科学与工程",
+   "colorKey": "pv",
+   "color": "#e07b39",
+   "entryCount": 2,
+   "totalPeriods": 6,
+   "teachers": [
+    "杨培志"
+   ],
+   "rooms": [
+    "第一教学楼301"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    1
+   ]
+  },
+  "S01230190": {
+   "code": "S01230190",
+   "name": "数值分析",
+   "label": "数值分析",
+   "colorKey": "numerical",
+   "color": "#d9a441",
+   "entryCount": 2,
+   "totalPeriods": 6,
+   "teachers": [
+    "李素华"
+   ],
+   "rooms": [
+    "第一教学楼306"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    4
+   ]
+  },
+  "S01240004": {
+   "code": "S01240004",
+   "name": "*工程燃烧学及煤的清洁利用技术",
+   "label": "工程燃烧学",
+   "colorKey": "combustion",
+   "color": "#7b3fbf",
+   "entryCount": 5,
+   "totalPeriods": 15,
+   "teachers": [
+    "李东方",
+    "杨兴卫",
+    "杨海瑞",
+    "段耀宗"
+   ],
+   "rooms": [
+    "第一教学楼201"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    4
+   ]
+  },
+  "A01240001": {
+   "code": "A01240001",
+   "name": "习近平新时代中国特色社会主义思想专题研究",
+   "label": "习近平思想专题",
+   "colorKey": "thought",
+   "color": "#c0392b",
+   "entryCount": 9,
+   "totalPeriods": 18,
+   "teachers": [
+    "李雪章",
+    "王国梁",
+    "胡玉荣",
+    "赵前杰",
+    "阿剑波"
+   ],
+   "rooms": [
+    "物理楼201（报告厅）"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    2
+   ]
+  },
+  "A02230002": {
+   "code": "A02230002",
+   "name": "西南联大历史文化",
+   "label": "西南联大历史文化",
+   "colorKey": "swu",
+   "color": "#6ab04c",
+   "entryCount": 1,
+   "totalPeriods": 2,
+   "teachers": [
+    "李红英"
+   ],
+   "rooms": [
+    "田家炳楼416（报告厅）"
+   ],
+   "campuses": [
+    "云南师范大学一二一西南联大校区"
+   ],
+   "days": [
+    1
+   ]
+  }
+ },
+ "codeOrder": [
+  "S01230165",
+  "S01230200",
+  "S02250001",
+  "S01230422",
+  "S01230036",
+  "S01230190",
+  "S01240004",
+  "A01240001",
+  "A02230002"
+ ],
+ "colors": {
+  "S01230165": "#c00000",
+  "S01230200": "#d97757",
+  "S02250001": "#3aa0a8",
+  "S01230422": "#2f6fd0",
+  "S01230036": "#e07b39",
+  "S01230190": "#d9a441",
+  "S01240004": "#7b3fbf",
+  "A01240001": "#c0392b",
+  "A02230002": "#6ab04c"
+ },
+ "stats": {
+  "rawEntryCount": 170,
+  "mergedEntryCount": 58,
+  "orphanLines": 0,
+  "courseCount": 9
+ }
+};
+
+  // ⚠️ 这里不能立即调用 normalizeData()。
+  // normalizeData() 内部依赖下面的 PERIOD_COUNT / MAIN_SLOTS / EAST_SLOTS / CODE_COLORS
+  // 等常量，而 `var` 只有声明会被提升、赋值不会。若在此处立即调用，这些常量此刻全是
+  // undefined，`Math.min(ps, undefined)` 会得到 NaN，导致 periodStart/periodEnd/spans
+  // 全部变成 NaN —— 今天视图显示「NaN-NaN 节」、周视图整格渲染不出课程块。
+  // 因此推迟到 boot() 里、常量定义之后初始化。
+  var DATA = null;
+  var DBG = [];
+
+  /* ------------------------------------------------------------------
+     2. 常量与工具
+     ------------------------------------------------------------------ */
+  var DAYS = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+  var PERIOD_COUNT = 13;
+
+  // 主校区（云南师范大学一二一西南联大校区）作息 —— 用于周视图行头
+  var MAIN_SLOTS = {
+    1: "08:30-09:15", 2: "09:20-10:05", 3: "10:25-11:10", 4: "11:15-12:00",
+    5: "13:40-14:25", 6: "14:30-15:15", 7: "15:30-16:15", 8: "16:30-17:15",
+    9: "18:20-19:05", 10: "19:10-19:55", 11: "20:00-20:45", 12: "20:50-21:35",
+    13: ""
+  };
+  // 云南大学东陆校区作息（仅 S02250001 使用）
+  var EAST_SLOTS = {
+    1: "", 2: "08:55-09:40", 3: "10:00-10:45", 4: "10:55-11:40",
+    5: "", 6: "14:55-15:40", 7: "16:00-16:45", 8: "16:55-17:40",
+    9: "", 10: "", 11: "", 12: "", 13: ""
+  };
+
+  var EAST_CAMPUS_KEY = "东陆";
+  var DEFAULT_TERM_START = "2026-08-31";
+  var SHOW_OFF_WEEK_DEFAULT = true;
+
+  /* 每条记录"自己的"时间：优先用该条目每节次的原始时间（云大东陆与师大作息不同），
+     兜底才退回校区统一的作息表。返回 [第p节时间串, ...]，索引 = 节次-1。 */
+  function entrySlotTimes(raw, ps, pe, campus) {
+    var out = [], i;
+    var lines = (raw && raw.rawLines) || null;
+    var perPeriod = {};
+    if (lines && lines.length) {
+      for (i = 0; i < lines.length; i++) {
+        var m = /(\d{1,2}:\d{2}-\d{1,2}:\d{2})/.exec(lines[i]);
+        if (m) perPeriod[ps + i] = m[1];
+      }
+    }
+    var table = (campus && campus.indexOf(EAST_CAMPUS_KEY) >= 0) ? EAST_SLOTS : MAIN_SLOTS;
+    for (i = ps; i <= pe; i++) {
+      out.push(perPeriod[i] || table[i] || MAIN_SLOTS[i] || "");
+    }
+    return out;
+  }
+  var LS = {
+    termStart: "kb.termStart",
+    theme: "kb.theme",
+    showOff: "kb.showOffWeek",
+    dayOverride: "kb.dayOverride"
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pad2 = function (n) { return (n < 10 ? "0" : "") + n; };
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  /** "09:20" -> 560（自 0 点起的分钟数）；非法返回 null */
+  function toMin(hhmm) {
+    if (!hhmm) return null;
+    var m = /^(\d{1,2}):(\d{2})$/.exec(String(hhmm).trim());
+    if (!m) return null;
+    return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+  }
+  function fmtClock(mins) {
+    mins = Math.max(0, Math.round(mins));
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+  }
+  /** 剩余时长的人话表达 */
+  function humanLeft(mins) {
+    mins = Math.max(0, Math.round(mins));
+    if (mins < 1) return "不到 1 分钟";
+    if (mins < 60) return mins + " 分钟";
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return m === 0 ? h + " 小时" : h + " 小时 " + m + " 分钟";
+  }
+
+  /* ---- 本地日期（绝不用 toISOString，避免 UTC 偏移） ---- */
+  function ymd(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function parseYmd(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
+    if (!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);   // 本地零点
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function addDays(d, n) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; }
+  /** JS getDay(): 0=周日 -> 我们的 1=周一..7=周日 */
+  function isoDow(d) { var g = d.getDay(); return g === 0 ? 7 : g; }
+  function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function dayDiff(a, b) { return Math.round((startOfDay(b) - startOfDay(a)) / 86400000); }
+
+  /* ---- 周次：第 1 教学周的周一 = termStart ---- */
+  function weekIndexOf(date, termStart) {
+    if (!termStart) return null;
+    var diff = dayDiff(termStart, date);
+    return Math.floor(diff / 7) + 1;   // 第 1 周从 termStart 当天算起
+  }
+  function mondayOfWeek(n, termStart) { return addDays(termStart, (n - 1) * 7); }
+
+  /* ------------------------------------------------------------------
+     3. 数据归一化 —— 兼容多种字段命名
+     ------------------------------------------------------------------ */
+  // 9 门课配色（与图片图例一致）
+  var CODE_COLORS = {
+    "S01230165": "#c00000", // 工程热力学理论及应用 —— 红
+    "S01230200": "#d97757", // 新时代中国特色社会主义理论与实践 —— 橙红
+    "S01230422": "#2f6fd0", // 英语读写 —— 蓝
+    "S01230036": "#e07b39", // 光伏科学与工程 —— 橙
+    "S01230190": "#d9a441", // 数值分析 —— 金黄
+    "S01240004": "#7b3fbf", // 工程燃烧学及煤的清洁利用技术 —— 紫
+    "S02250001": "#3aa0a8", // 气固表面反应与传递 —— 青
+    "A01240001": "#c0392b", // 习近平新时代…专题研究 —— 深红
+    "A02230002": "#6ab04c"  // 西南联大历史文化 —— 绿
+  };
+  var FALLBACK_COLORS = [
+    "#c00000", "#d97757", "#2f6fd0", "#e07b39", "#d9a441",
+    "#7b3fbf", "#3aa0a8", "#c0392b", "#6ab04c", "#2d7d6f",
+    "#8e5bd0", "#b8860b"
+  ];
+
+  function pick(obj, keys, dflt) {
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "") return obj[k];
+    }
+    return dflt;
+  }
+
+  /** 把 "09:20-10:05" / "09:20~10:05" / "0920-1005" 拆成 {start,end,startMin,endMin} */
+  function parseTimeRange(s) {
+    if (!s) return null;
+    var m = /(\d{1,2}):?(\d{2})\s*[-~—–至]\s*(\d{1,2}):?(\d{2})/.exec(String(s));
+    if (!m) return null;
+    var a = parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+    var b = parseInt(m[3], 10) * 60 + parseInt(m[4], 10);
+    if (b < a) b += 24 * 60;   // 跨零点兜底
+    return { start: fmtClock(a), end: fmtClock(b), startMin: a, endMin: b };
+  }
+
+  function addWeekRange(list, from, to, parity) {
+    from = parseInt(from, 10); to = parseInt(to, 10);
+    if (!isFinite(from) || !isFinite(to)) return;
+    if (to < from) { var t = from; from = to; to = t; }
+    from = Math.max(1, from); to = Math.min(30, to);
+    list.push({ from: from, to: to, parity: parity || "all" });
+  }
+
+  /** 解析周次范围：支持 [{from,to,parity}] 以及 "1-7周单周,9周" 这类字符串 */
+  function parseWeekRanges(raw) {
+    var out = [];
+    if (!raw) return out;
+    if (Array.isArray(raw)) {
+      for (var i = 0; i < raw.length; i++) {
+        var r = raw[i];
+        if (typeof r === "string") { out = out.concat(parseWeekRanges(r)); continue; }
+        if (!r) continue;
+        var from = pick(r, ["from", "start", "weekStart"], null);
+        var to = pick(r, ["to", "end", "weekEnd"], from);
+        var par = pick(r, ["parity", "type"], "all");
+        if (par === "单周") par = "odd";
+        if (par === "双周") par = "even";
+        if (par === "单双周" || par === "全周" || !par) par = "all";
+        if (from !== null) addWeekRange(out, from, to, par);
+      }
+      return out;
+    }
+    var str = String(raw);
+    var re = /(\d+)\s*(?:[-~–—至]\s*(\d+))?\s*周?\s*(单双周|单周|双周|odd|even|all)?/g;
+    var m;
+    while ((m = re.exec(str)) !== null) {
+      var tag = m[3];
+      var parity = "all";
+      if (tag === "单周" || tag === "odd") parity = "odd";
+      else if (tag === "双周" || tag === "even") parity = "even";
+      addWeekRange(out, m[1], m[2] || m[1], parity);
+    }
+    return out;
+  }
+
+  function weekInRanges(week, ranges) {
+    if (!ranges || !ranges.length) return true;   // 无周次信息 = 每周都有
+    for (var i = 0; i < ranges.length; i++) {
+      var r = ranges[i];
+      if (week < r.from || week > r.to) continue;
+      if (r.parity === "odd" && week % 2 === 0) continue;
+      if (r.parity === "even" && week % 2 === 1) continue;
+      return true;
+    }
+    return false;
+  }
+
+  /** 归一化整份数据 */
+  function normalizeData(raw) {
+    raw = raw || {};
+    var dbg = [];
+    var coursesRaw = raw.courses || raw.items || raw.entries || [];
+
+    // 颜色优先级：内置 9 门课图例色（用户指定的图片图例）> 数据里的 colors > 记录自带 color
+    // > 按出现顺序分配
+    var colorMap = {};
+    var srcMap = raw.colors || raw.colorMap || {};
+    for (var ck in srcMap) if (Object.prototype.hasOwnProperty.call(srcMap, ck)) colorMap[ck] = srcMap[ck];
+    for (var c2 in CODE_COLORS) colorMap[c2] = CODE_COLORS[c2];   // 图例色覆盖
+
+    var courses = [];
+    var seenCodes = [];
+
+    for (var i = 0; i < coursesRaw.length; i++) {
+      var r = coursesRaw[i] || {};
+      var code = String(pick(r, ["code", "courseCode"], "") || "").trim();
+      var name = String(pick(r, ["name", "courseName", "title"], "") || "").replace(/^\*+/, "").trim();
+      var day = parseInt(pick(r, ["day", "weekday"], 0), 10);
+      if (!(day >= 1 && day <= 7)) { dbg.push("bad day: " + code + " " + name); continue; }
+      if (!name) name = code || "未命名课程";
+
+      var rawPeriods = pick(r, ["periods"], null);
+      var ps, pe;
+      if (Array.isArray(rawPeriods) && rawPeriods.length) {
+        ps = parseInt(rawPeriods[0], 10);
+        pe = parseInt(rawPeriods[rawPeriods.length - 1], 10);
+        // 源数据里连堂的节次序号可能不连续（第 1 节和第 3 节分成两条时），
+        // 若 periods 数组不连续，则按连续区间计算跨度，保证网格跨行不漏节次。
+      } else {
+        ps = parseInt(pick(r, ["periodStart", "period", "periodFrom", "startPeriod"], 1), 10);
+        pe = parseInt(pick(r, ["periodEnd", "periodTo", "endPeriod"], ps), 10);
+      }
+      if (!isFinite(ps) || ps < 1) ps = 1;
+      if (!isFinite(pe) || pe < ps) pe = ps;
+      ps = Math.max(1, Math.min(ps, PERIOD_COUNT));
+      pe = Math.max(ps, Math.min(pe, PERIOD_COUNT));
+
+      // 可能的第二个不连续时间段（同一天同一门课中间隔了一节）
+      var ps2 = 0, pe2 = 0;
+      if (Array.isArray(rawPeriods) && rawPeriods.length) {
+        var sorted = rawPeriods.map(Number).filter(function (n) { return isFinite(n); }).sort(function (a, b) { return a - b; });
+        // 找出与 [ps,pe] 不相邻的尾段
+        for (var sp = 0; sp < sorted.length; sp++) {
+          if (sorted[sp] > pe + 1) { ps2 = sorted[sp]; pe2 = sorted[sorted.length - 1]; break; }
+        }
+      }
+
+      var campus = String(pick(r, ["campus", "area"], "") || "").trim();
+      var isEast = campus.indexOf(EAST_CAMPUS_KEY) >= 0;
+      var slotTimes = entrySlotTimes(r, ps, pe, campus);
+      var slotTimes2 = ps2 ? entrySlotTimes({ rawLines: (ps2 - ps) < 0 ? null : r.rawLines }, ps2, pe2, campus) : [];
+
+      // 主时段的起止：有每节次时间就用"第一节开始 → 最后一节结束"，否则退回记录自带 time
+      // ⚠️ 不能把两个时间串直接拼成 "09:20-10:05-12:00" —— parseTimeRange 的正则只会
+      // 匹配到最前面那一对，连堂课于是被截断成"只上第一节"（下课时间、"进行中"判断
+      // 都会提前结束）。这里显式取 首节的开始时刻 + 末节的结束时刻。
+      var firstSlot = slotTimes[0] || "";
+      var lastSlot = slotTimes[slotTimes.length - 1] || firstSlot;
+      var spanTr = parseTimeRange(firstSlot.split("-")[0] + "-" + lastSlot.split("-")[1]);
+      var fallbackTr = parseTimeRange(pick(r, ["time", "timeRange", "slot"], ""));
+      var tr = spanTr || fallbackTr ||
+        parseTimeRange(((isEast ? EAST_SLOTS : MAIN_SLOTS)[ps]) || "");
+      if (!tr) { dbg.push("no time: " + code + " " + name + " day" + day); continue; }
+
+      var ranges = parseWeekRanges(pick(r, ["weekRanges", "weeks", "weekRange", "weekSpec"], null));
+      if (!ranges.length) dbg.push("no weeks: " + code + " " + name + " day" + day + "，按全学期处理");
+
+      var color = pick(r, ["color"], null);
+      if (!color || color.charAt(0) !== "#") color = colorMap[code] || null;
+      if (!color) color = colorMap[String(pick(r, ["colorKey"], ""))] || null;
+      if (!color) {
+        var idx = seenCodes.indexOf(code);
+        if (idx < 0) { seenCodes.push(code); idx = seenCodes.length - 1; }
+        color = FALLBACK_COLORS[idx % FALLBACK_COLORS.length];
+      }
+
+      var label = String(pick(r, ["label", "shortName", "abbr"], "") || "").trim();
+      // 目录里的 label 更准确
+      var catalogEntry = (raw.courseCatalog && (raw.courseCatalog[code] || null)) || null;
+      if (!label && catalogEntry) label = String(catalogEntry.label || "").trim();
+      if (!label) label = shorten(name);
+
+      var teacher = String(pick(r, ["teacher", "instructor"], "") || "").trim();
+      if (!teacher) {
+        var tl = pick(r, ["teacherList"], null);
+        if (Array.isArray(tl) && tl.length) teacher = tl.join(" / ");
+        else if (tl) teacher = String(tl);
+      }
+
+      var e = {
+        uid: "c" + i,
+        code: code,
+        name: name,
+        shortName: label,
+        day: day,
+        periodStart: ps,
+        periodEnd: pe,
+        periods: (Array.isArray(rawPeriods) && rawPeriods.length) ? rawPeriods.map(Number) : null,
+        spans: clampSpan(pe - ps + 1),
+        extra: (ps2 && pe2) ? { start: ps2, end: pe2, times: slotTimes2 } : null,
+        weekRanges: ranges,
+        weekText: String(pick(r, ["weekSpec"], "") || "").trim() || rangesToText(ranges),
+        teacher: teacher,
+        room: String(pick(r, ["room", "location", "classroom"], "") || "").trim(),
+        campus: campus,
+        time: tr.start + "-" + tr.end,
+        slotTimes: slotTimes,
+        startMin: tr.startMin,
+        endMin: tr.endMin,
+        color: color,
+        isEast: isEast,
+        notes: String(pick(r, ["notes"], "") || ""),
+        raw: r.raw || (r.rawLines ? r.rawLines.join(" | ") : ""),
+        _search: ""
+      };
+      e._slot = findSlotLabel(e, ps);
+      courses.push(e);
+    }
+
+    // 搜索索引
+    for (var j = 0; j < courses.length; j++) {
+      var c = courses[j];
+      c._search = (c.name + " " + c.code + " " + c.teacher + " " + c.room + " " +
+        c.campus + " " + c.shortName).toLowerCase();
+    }
+
+    // 节次行头时间：优先数据里的 periods，缺失时用内置表
+    var periods = [];
+    var srcPeriods = raw.periods || [];
+    for (var p = 0; p < PERIOD_COUNT; p++) {
+      var entry = null;
+      for (var q = 0; q < srcPeriods.length; q++) {
+        var rp = srcPeriods[q] || {};
+        var n = parseInt(pick(rp, ["period", "index", "n"], 0), 10);
+        if (n === p + 1) { entry = rp; break; }
+      }
+      var tm = "";
+      if (entry) {
+        // 注意：第 13 节在源数据里没有时间（start/end 为 null），不能用 pick(...,dflt)
+        // 否则会被误判成第 1 节的时间。
+        var s = entry.start, en = entry.end;
+        if (s && en) tm = String(s) + "-" + String(en);
+        else tm = String(pick(entry, ["time", "range"], "") || "");
+      }
+      if (!parseTimeRange(tm)) tm = "";   // 该节确实没有课 → 行头不显示时间
+      periods.push({ index: p + 1, time: tm });
+    }
+
+    // 课程（按课码聚合）—— 用于详情弹层与图例
+    var byCode = {};
+    var codeOrder = [];
+    for (var k = 0; k < courses.length; k++) {
+      var cc = courses[k];
+      var key = cc.code || cc.name;
+      if (!byCode[key]) {
+        var cat = (raw.courseCatalog && raw.courseCatalog[key]) || null;
+        byCode[key] = {
+          code: cc.code,
+          name: cc.name,
+          shortName: (cat && cat.label) || cc.shortName,
+          color: cc.color,
+          entries: [], teachers: [], rooms: [], campuses: [],
+          weeks: "", count: 0,
+          totalPeriods: (cat && cat.totalPeriods) || 0
+        };
+        codeOrder.push(key);
+      }
+      var g = byCode[key];
+      g.entries.push(cc);
+      g.count++;
+      if (cc.teacher && g.teachers.indexOf(cc.teacher) < 0) g.teachers.push(cc.teacher);
+      if (cc.room && g.rooms.indexOf(cc.room) < 0) g.rooms.push(cc.room);
+      if (cc.campus && g.campuses.indexOf(cc.campus) < 0) g.campuses.push(cc.campus);
+    }
+    var courseList = [];
+    for (var o = 0; o < codeOrder.length; o++) {
+      var gg = byCode[codeOrder[o]];
+      gg.entries.sort(function (a, b) {
+        return a.day - b.day || a.periodStart - b.periodStart || a.teacher.localeCompare(b.teacher, "zh");
+      });
+      gg.weeks = weeksUnionText(gg.entries);
+      if (!gg.totalPeriods) {
+        for (var tp = 0; tp < gg.entries.length; tp++) gg.totalPeriods += gg.entries[tp].spans;
+      }
+      courseList.push(gg);
+    }
+    // 按数据里的 codeOrder 排序（保持与图例一致的稳定顺序）
+    var orderSrc = raw.codeOrder;
+    if (Array.isArray(orderSrc) && orderSrc.length) {
+      courseList.sort(function (a, b) {
+        var ia = orderSrc.indexOf(a.code), ib = orderSrc.indexOf(b.code);
+        if (ia < 0) ia = 999; if (ib < 0) ib = 999;
+        return ia - ib;
+      });
+    } else {
+      courseList.sort(function (a, b) { return (a.code || "").localeCompare(b.code || ""); });
+    }
+
+    // 学期起始日
+    var ts = raw.week1Monday || raw.termStart || raw.semesterStart || DEFAULT_TERM_START;
+    if (!parseYmd(ts)) ts = DEFAULT_TERM_START;
+
+    return {
+      semester: raw.semester || raw.title || "2026-2027学年秋季学期研究生课表",
+      term: raw.term || "",
+      termStart: ts,
+      days: (raw.days && raw.days.length === 7) ? raw.days : DAYS,
+      periods: periods,
+      courses: courses,
+      courseList: courseList,
+      colorMap: colorMap,
+      stats: raw.stats || null,
+      dbg: dbg
+    };
+  }
+
+  function clampSpan(n) { return Math.max(1, Math.min(PERIOD_COUNT, n || 1)); }
+
+  /** 该条目第一节的真实时间，用于详情里展示"第 N 节 · 09:20-10:05" */
+  function findSlotLabel(e, p) {
+    return (e.slotTimes && e.slotTimes[0]) || "";
+  }
+
+  /** 无 shortName 时，从全名里裁一个 4-6 字的短名 */
+  function shorten(name) {
+    var s = String(name).replace(/[（(].*?[)）]/g, "").trim();
+    if (s.length <= 6) return s;
+    return s.slice(0, 6);
+  }
+
+  function rangesToText(ranges) {
+    if (!ranges || !ranges.length) return "全学期";
+    var parts = [];
+    for (var i = 0; i < ranges.length; i++) {
+      var r = ranges[i];
+      var base = (r.from === r.to) ? ("第 " + r.from + " 周") : ("第 " + r.from + "–" + r.to + " 周");
+      if (r.parity === "odd") base += "（单周）";
+      else if (r.parity === "even") base += "（双周）";
+      parts.push(base);
+    }
+    return parts.join("、");
+  }
+  /** 汇总某门课出现过的所有周次（用于详情里的概览文字） */
+  function weeksUnionText(entries) {
+    var set = {};
+    for (var i = 0; i < entries.length; i++) {
+      var e = entries[i];
+      for (var w = 1; w <= 20; w++) if (weekInRanges(w, e.weekRanges)) set[w] = true;
+    }
+    var ks = Object.keys(set).map(Number).sort(function (a, b) { return a - b; });
+    if (!ks.length) return "";
+    // 压成区间
+    var out = [], s = ks[0], prev = ks[0];
+    for (var q = 1; q <= ks.length; q++) {
+      var cur = ks[q];
+      if (cur !== prev + 1) {
+        out.push(s === prev ? String(s) : (s + "-" + prev));
+        s = cur;
+      }
+      prev = cur;
+    }
+    return "第 " + out.join("、") + " 周";
+  }
+
+  /* ------------------------------------------------------------------
+     4. 应用状态
+     ------------------------------------------------------------------ */
+  var state = {
+    tab: "today",
+    week: 1,
+    termStart: "2026-08-31",
+    showOffWeek: true,
+    q: "",
+    theme: "auto",
+    dayOverride: 0,        // 0 = 用真实今天的星期
+    todayDow: 1,           // 真实今天的星期（1-7）
+    nowMin: 0
+  };
+  var appBuiltAt = "2026-01-01T00:00:00.000Z";
+
+  /* ------------------------------------------------------------------
+     5. "现在"的计算
+     ------------------------------------------------------------------ */
+  var liveTick = {
+    live: null,       // 正在上的课
+    next: null,       // 下一节
+    others: [],       // 同一时刻并行的其他课（跨校区）
+    conflict: false   // 时间区间重叠 → 需要赶场
+  };
+
+  function computeLive(dayCourses, nowMinutes) {
+    var live = [], next = null;
+    for (var i = 0; i < dayCourses.length; i++) {
+      var c = dayCourses[i];
+      if (nowMinutes >= c.startMin && nowMinutes < c.endMin) live.push(c);
+      else if (c.startMin > nowMinutes) {
+        if (!next || c.startMin < next.startMin) next = c;
+      }
+    }
+    if (!next) {
+      // 找下一节也是"最近即将开始"的（用最早开始时间）
+      for (var j = 0; j < dayCourses.length; j++) {
+        var d = dayCourses[j];
+        if (d.startMin > nowMinutes && (!next || d.startMin < next.startMin)) next = d;
+      }
+    }
+    // 冲突：并行课程的时间区间互相重叠
+    var conflict = false;
+    for (var a = 0; a < live.length; a++) {
+      for (var b = a + 1; b < live.length; b++) {
+        if (live[a].startMin < live[b].endMin && live[b].startMin < live[a].endMin) conflict = true;
+      }
+    }
+    liveTick = { live: live, next: next, conflict: conflict };
+    return liveTick;
+  }
+
+  /* ------------------------------------------------------------------
+     6. 渲染：今天视图
+     ------------------------------------------------------------------ */
+  function coursesForDay(dow, week) {
+    var out = [];
+    for (var i = 0; i < DATA.courses.length; i++) {
+      var c = DATA.courses[i];
+      if (c.day !== dow) continue;
+      if (!weekInRanges(week, c.weekRanges)) continue;
+      out.push(c);
+    }
+    out.sort(function (a, b) {
+      return a.startMin - b.startMin || a.periodStart - b.periodStart || a.name.localeCompare(b.name, "zh");
+    });
+    return out;
+  }
+  /** 与 coursesForDay 相同，但忽略周次过滤 */
+  function coursesForDayAllWeeks(dow) {
+    var out = [];
+    for (var i = 0; i < DATA.courses.length; i++) {
+      if (DATA.courses[i].day === dow) out.push(DATA.courses[i]);
+    }
+    out.sort(function (a, b) { return a.startMin - b.startMin; });
+    return out;
+  }
+
+  function campusChip(c) {
+    if (!c.campus) return "";
+    var label = c.isEast ? "云大东陆" : (c.campus.indexOf("云南师范大学") >= 0 ? "师大一二一" : c.campus);
+    return '<span class="chip' + (c.isEast ? " campus-east" : "") + '" title="' + esc(c.campus) + '">' + esc(label) + "</span>";
+  }
+
+  function renderToday() {
+    var d = state.dayOverride ? mondayOfWeekBase(state.dayOverride) : new Date();
+    var dow = state.dayOverride ? state.dayOverride : state.todayDow;
+    var isRealToday = !state.dayOverride;
+    var dayDate = dayDateFor(dow);
+
+    $("todayDate").textContent = (dayDate.getMonth() + 1) + "月" + dayDate.getDate() + "日 " +
+      "周" + "一二三四五六日".charAt(dow - 1);
+
+    var wk = weekIndexOf(dayDate, parseYmd(state.termStart));
+    var wkTxt = (wk && wk >= 1) ? ("第 <b>" + wk + "</b> 教学周") : "不在学期内";
+    $("todayWeek").innerHTML = wkTxt + (isRealToday ? " · 今天" : ' · <a href="#" id="backRealToday">回到今天</a>');
+    var back = $("backRealToday");
+    if (back) back.addEventListener("click", function (e) { e.preventDefault(); state.dayOverride = 0; $("dayOverride").value = "0"; saveSettings(); syncURL(); renderAll(); });
+
+    // —— 当前教学周内的课 ——
+    var list = (wk && wk >= 1) ? coursesForDay(dow, wk) : coursesForDay(dow, state.week);
+    // 周次过滤后为空，但该天其实有课 → 提示并展示全部（置灰外观不适用于今天视图，直接展示）
+    var hiddenByWeek = false;
+    if (!list.length) {
+      var all = coursesForDayAllWeeks(dow);
+      if (all.length && wk && wk >= 1) { list = all; hiddenByWeek = true; }
+      else if (all.length && !wk) { hiddenByWeek = false; }
+    }
+
+    var nowMin = state.nowMin;
+    // 注意：回退分支里的 list 装的是「本周没课、但别的周有课」的安排，
+    // 这些课本周根本不发生，**绝不能参与「正在上课」计算** —— 否则会显示
+    // "正在上课：XXX"甚至"⚠️ 有并行课程"这种假提示（不同周次的两门课从不同周开）。
+    var tick = (isRealToday && !hiddenByWeek)
+      ? computeLive(list, nowMin)
+      : { live: [], next: null, conflict: false };
+    var liveSet = {};
+    for (var li = 0; li < tick.live.length; li++) liveSet[tick.live[li].uid] = true;
+
+    // —— 顶部状态条 ——
+    var banner = $("nowBanner");
+    if (hiddenByWeek) {
+      // 本周这一天没课；下面展示的是其他周次的安排（供参考），不代表今天要上课
+      banner.hidden = false; banner.className = "now-banner";
+      banner.innerHTML = "<span>📅 第 " + wk + " 周这一天没有课；下面显示的是该天的其他周次安排（仅供参考）</span>";
+      banner.onclick = null;
+    } else if (!isRealToday) {
+      banner.hidden = false; banner.className = "now-banner";
+      banner.innerHTML = '<span>📅 正在预览 <b>周' + "一二三四五六日".charAt(dow - 1) + "</b> 的课程（非实时高亮）</span>";
+    } else if (tick.live.length) {
+      var first = tick.live[0];
+      var leftMin = first.endMin - nowMin;
+      var pct = Math.round((nowMin - first.startMin) / Math.max(1, first.endMin - first.startMin) * 100);
+      banner.hidden = false; banner.className = "now-banner live";
+      banner.innerHTML =
+        '<span class="pulse-dot"></span>' +
+        "<span>正在上课：" + esc(first.shortName) + " · 还剩 <span class=\"tick\">" + humanLeft(leftMin) + "</span></span>" +
+        '<span class="track-wrap" style="flex:1 1 auto;max-width:220px"><span class="track" style="display:block;height:5px;border-radius:99px;background:rgba(255,255,255,.35);overflow:hidden"><span class="fill" style="display:block;height:100%;width:' + pct + '%;background:currentColor"></span></span></span>' +
+        (tick.conflict ? '<span class="go">⚠️ 有并行课程</span>' : "");
+      banner.onclick = function () { scrollToCard(first.uid); };
+    } else if (tick.next) {
+      var wait = tick.next.startMin - nowMin;
+      banner.hidden = false; banner.className = "now-banner";
+      banner.innerHTML = "<span>☕ 课间休息 · 下一节 <b>" + esc(tick.next.time.split("-")[0]) +
+        "</b> 开始（" + humanLeft(wait) + "后）· " + esc(tick.next.shortName) + "</span>";
+      banner.onclick = function () { scrollToCard(tick.next.uid); };
+    } else if (list.length) {
+      banner.hidden = false; banner.className = "now-banner";
+      banner.innerHTML = "<span>🌙 今天的课已经全部结束了，早点休息～</span>";
+      banner.onclick = null;
+    } else {
+      banner.hidden = true; banner.onclick = null;
+    }
+
+    // —— 卡片 ——
+    var box = $("todayCards");
+    if (!list.length) {
+      box.innerHTML =
+        '<div class="empty"><div class="big">🎉</div>' +
+        '<div class="t">今天没有课</div>' +
+        '<div class="d">' + esc((dayDate.getMonth() + 1) + "月" + dayDate.getDate() + "日") +
+        " · 好好休息或安排自己的事情吧</div></div>";
+      return;
+    }
+
+    var html = [];
+    if (hiddenByWeek) {
+      // 用 .note 而不是 .conflict：这是说明性提示，不是"时间冲突"警告
+      html.push('<div class="note">ℹ️ 第 ' + wk + ' 周按周次安排本没有课；下面显示的是该天的全部课程安排（含其他周次），仅供参考。</div>');
+    }
+    for (var i = 0; i < list.length; i++) {
+      var c = list[i];
+      var isLive = !!liveSet[c.uid];
+      var isPast = isRealToday && !isLive && c.endMin <= nowMin;
+      // 与进行中的课冲突？
+      var conflictWith = null;
+      if (isLive && tick.live.length > 1) {
+        for (var x = 0; x < tick.live.length; x++) {
+          var o = tick.live[x];
+          if (o.uid !== c.uid && o.startMin < c.endMin && c.startMin < o.endMin) { conflictWith = o; break; }
+        }
+      }
+
+      var cls = "card" + (isLive ? " is-live" : "") + (isPast ? " is-past" : "");
+      html.push('<article class="' + cls + '" id="card-' + c.uid + '" style="--c:' + c.color + '" data-uid="' + c.uid + '">');
+      html.push('<div class="card-body">');
+      html.push('<div class="card-top">');
+      html.push('<span class="card-period">' + (c.periodStart === c.periodEnd ? (c.periodStart + " 节") : (c.periodStart + "-" + c.periodEnd + " 节")) + "</span>");
+      if (c.periodStart !== c.periodEnd) html.push('<span class="chip">连堂</span>');
+      html.push('<span class="card-time">' + esc(c.time) + "</span>");
+      html.push(campusChip(c));
+      if (isLive) html.push('<span class="chip live">进行中</span>');
+      if (isPast) html.push('<span class="chip">已结束</span>');
+      html.push("</div>");
+      html.push('<h3 class="card-name">' + esc(c.name) + "</h3>");
+      html.push('<div class="card-meta">');
+      if (c.teacher) html.push('<span><span class="k">教师</span>' + esc(c.teacher) + "</span>");
+      if (c.room) html.push('<span><span class="k">教室</span>' + esc(c.room) + "</span>");
+      if (c.code) html.push('<span><span class="k">课码</span><span style="font-family:var(--mono);font-size:12.5px">' + esc(c.code) + "</span></span>");
+      html.push("</div>");
+      if (c.weekText) html.push('<div class="card-note">周次：' + esc(c.weekText) + "</div>");
+      if (isLive) {
+        var left = c.endMin - nowMin;
+        var pct2 = Math.round((nowMin - c.startMin) / Math.max(1, c.endMin - c.startMin) * 100);
+        html.push('<div class="live-bar"><span>进行中 · 还剩 ' + humanLeft(left) + "</span>" +
+          '<span class="track"><span class="fill" style="width:' + pct2 + '%"></span></span>' +
+          "<span>" + esc(c.time.split("-")[1]) + " 下课</span></div>");
+      }
+      if (conflictWith) {
+        html.push('<div class="conflict">⚠️ 与「' + esc(conflictWith.shortName) + "」（" + esc(conflictWith.time) + " · " +
+          esc(conflictWith.room || conflictWith.campus) + "）时间冲突，注意赶场！</div>");
+      }
+      html.push("</div>");
+      html.push('<div class="card-actions"><button class="icon-btn js-detail" data-code="' + esc(c.code) + '" data-uid="' + c.uid + '" title="查看详情" aria-label="查看详情">›</button></div>');
+      html.push("</article>");
+    }
+    box.innerHTML = html.join("");
+  }
+
+  /** 该 dow（1-7）在本周对应的日期 */
+  function dayDateFor(dow) {
+    var base;
+    if (state.dayOverride) base = mondayOfWeekBase(state.dayOverride);
+    else base = new Date();
+    var monday = addDays(startOfDay(base), -(isoDow(base) - 1));
+    return addDays(monday, dow - 1);
+  }
+  /** 把 dow 当成"这一周里的那一天"，返回本周周一（用于预览模式） */
+  function mondayOfWeekBase(dow) { return dayDateForReal(dow); }
+  function dayDateForReal(dow) {
+    var t = startOfDay(new Date());
+    var monday = addDays(t, -(isoDow(t) - 1));
+    return addDays(monday, dow - 1);
+  }
+  function scrollToCard(uid) {
+    var el = $("card-" + uid);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  /* ------------------------------------------------------------------
+     7. 渲染：整周网格
+     ------------------------------------------------------------------ */
+  function renderWeek() {
+    var week = state.week;
+    var monday = mondayOfWeek(week, parseYmd(state.termStart));
+    var today = startOfDay(new Date());
+    var realWeek = weekIndexOf(today, parseYmd(state.termStart));
+    var todayKey = today.getTime();
+
+    // —— 表头星期 + 日期 ——
+    var out = [];
+    // 骨架与课程块**全部**显式指定 grid 坐标：一旦让它们参与自动排布，
+    // 显式定位的课程块会占住格子，自动排布的骨架只能绕开，13 行就被挤错位。
+    out.push('<div class="corner" style="grid-row:1;grid-column:1;">节次</div>');
+    for (var d = 1; d <= 7; d++) {
+      var dd = addDays(monday, d - 1);
+      var isToday = dd.getTime() === todayKey;
+      var cls = "day-head" + (isToday ? " is-today" : "") + (d >= 6 ? " is-weekend" : "");
+      out.push('<div class="' + cls + '" style="grid-row:1;grid-column:' + (d + 1) + ';"><div class="dn">' + DAYS[d - 1] + (isToday ? " · 今天" : "") +
+        '</div><div class="dd">' + (dd.getMonth() + 1) + "/" + dd.getDate() + "</div></div>");
+    }
+
+    // —— 每节一行 ——
+    var liveUids = {};
+    var showTodayCol = (realWeek === week);
+    for (var li = 0; li < liveTick.live.length; li++) liveUids[liveTick.live[li].uid] = true;
+
+    var q = state.q.toLowerCase();
+    var matchCount = 0;
+
+    // —— 先把课程按 (星期, 起始节) 归并成"时段槽" ——
+    // 同一门课在同一时段往往有多条记录（不同周次/不同教师，例如「1周李明、2周段远源」，
+    // 或「新时代理论」第 10~18 周各一条）。周视图里同一门课同一时段只画一个块：本周有安排
+    // 就画那条，否则画一条置灰的「非本周」，其余记录点开详情看。
+    // 不做这个归并的话，周二第 1 节会堆 8 个块把该行撑到 770px 高，13 行网格会彻底错位。
+    var slotMap = {};    // "day|ps" -> {day, ps, pe, byCode:{}}
+    for (var i = 0; i < DATA.courses.length; i++) {
+      var c = DATA.courses[i];
+      var inWeek = weekInRanges(week, c.weekRanges);
+      if (!inWeek && !state.showOffWeek) continue;
+      var sk = c.day + "|" + c.periodStart;
+      var sl = slotMap[sk];
+      if (!sl) sl = slotMap[sk] = { day: c.day, ps: c.periodStart, pe: c.periodEnd, byCode: {} };
+      var ck = c.code || c.name;
+      var gr = sl.byCode[ck];
+      if (!gr) gr = sl.byCode[ck] = { code: c.code, best: null, inWeek: false, others: 0, match: false };
+      if (q && c._search.indexOf(q) >= 0) gr.match = true;
+      if (inWeek && !gr.inWeek) { gr.best = c; gr.inWeek = true; }
+      else if (!gr.best) { gr.best = c; }
+      else { gr.others++; }
+      // 槽位跨度只按"最终会被画出来的那条记录"（gr.best）算，见渲染循环里 peMax 的计算。
+      // 不要在这里累加所有周次的 periodEnd：否则第 16 周数值分析明明只到第 6 节，
+      // 也会因为第 3-15 周那条(到第 8 节)而被画成 span 4。
+    }
+
+    // —— 骨架：节次行头 + 91 个空格 ——
+    // 每格恰好占 1 行（min-height = --row-h），里面不塞课程块，
+    // 这样 13 行严格等距，与左侧节次时间一一对齐。
+    for (var p = 1; p <= PERIOD_COUNT; p++) {
+      var slotTxt = DATA.periods[p - 1] ? DATA.periods[p - 1].time : "";
+      var pt = slotTxt ? slotTxt.split("-") : ["", ""];
+      out.push('<div class="period-head" style="grid-row:' + (p + 1) + ';grid-column:1;" role="rowheader"><span class="n">' + p +
+        '</span><span class="t">' + esc(pt[0] || "") + "<br>" + esc(pt[1] || "") + "</span></div>");
+      for (var dow = 1; dow <= 7; dow++) {
+        var dd2 = addDays(monday, dow - 1);
+        var isTodayCol = dd2.getTime() === todayKey;
+        var cellCls = "cell" + (isTodayCol && showTodayCol ? " is-today-col" : "");
+        out.push('<div class="' + cellCls + '" style="grid-row:' + (p + 1) + ';grid-column:' + (dow + 1) + ';"></div>');
+      }
+    }
+
+    // —— 课程块：用显式 grid-row / grid-column 铺到对应的行上 ——
+    // 不能塞进 .cell 里用 flex 堆叠：那样块只能占起始行的自然高度，多块叠加会把该行撑爆，
+    // 于是 13 行的行高被内容决定、与左侧节次彻底错位。
+    var slotKeys = [];
+    for (var kk in slotMap) if (Object.prototype.hasOwnProperty.call(slotMap, kk)) slotKeys.push(kk);
+    slotKeys.sort(function (a, b) {
+      var A = slotMap[a], B = slotMap[b];
+      return A.day - B.day || A.ps - B.ps;
+    });
+
+    for (var si = 0; si < slotKeys.length; si++) {
+      var s2 = slotMap[slotKeys[si]];
+      var codes = [];
+      for (var ck2 in s2.byCode) if (Object.prototype.hasOwnProperty.call(s2.byCode, ck2)) codes.push(s2.byCode[ck2]);
+      codes.sort(function (a, b) { return (a.code || "").localeCompare(b.code || ""); });
+      // 槽位跨度 = 该时段内「会被画出来的课码」的 periodEnd 最大值。
+      // 用 gr.best.periodEnd（各课码实际渲染的那条记录）而不是所有周次的 periodEnd 最大值，
+      // 避免第 16 周数值分析(5-6节, 13:40-15:15) 被画成 span 4 盖到第 8 节。
+      var peMax = s2.ps;
+      for (var zp = 0; zp < codes.length; zp++) {
+        if (!codes[zp].best) continue;
+        if (codes[zp].best.periodEnd > peMax) peMax = codes[zp].best.periodEnd;
+      }
+      var span2 = clampSpan(peMax - s2.ps + 1);
+      var anyMatch = false;
+      for (var z = 0; z < codes.length; z++) if (codes[z].match) anyMatch = true;
+      if (anyMatch) matchCount++;
+
+      out.push('<div class="slot" style="grid-column:' + (s2.day + 1) + ";grid-row:" + (s2.ps + 1) +
+        " / span " + span2 + ';">');
+      for (var v = 0; v < codes.length; v++) {
+        var gr2 = codes[v], bc = gr2.best;
+        if (!bc) continue;
+        var bCls = "blk";
+        if (!gr2.inWeek) bCls += " is-offweek";
+        if (gr2.inWeek && liveUids[bc.uid] && showTodayCol) bCls += " is-live";
+        if (q) bCls += gr2.match ? " is-match" : " is-dimmed-by-search";
+
+        out.push('<button class="' + bCls + '" style="--c:' + bc.color + ';" data-uid="' + bc.uid +
+          '" data-code="' + esc(bc.code) + '" title="' + esc(bc.name + " · " + bc.teacher + " · " + bc.room + " · " + bc.time) + '">');
+        out.push('<span class="bn">' + esc(bc.shortName) + "</span>");
+        if (bc.room) out.push('<span class="br">' + esc(bc.room) + "</span>");
+        out.push('<span class="bt">' + esc(bc.time) + "</span>");
+        if (gr2.inWeek && q && gr2.match) out.push('<span class="tiny-badge">命中</span>');
+        else if (!gr2.inWeek) out.push('<span class="bt">非本周' + (bc.weekText ? " · " + esc(bc.weekText) : "") + "</span>");
+        else if (bc.isEast) out.push('<span class="east-dot" title="云大东陆校区"></span>');
+        if (gr2.others > 0) out.push('<span class="bt">+' + gr2.others + " 条其他周次</span>");
+        out.push("</button>");
+      }
+      out.push("</div>");
+    }
+
+    $("grid").innerHTML = out.join("");
+
+    // 汇总
+    var cnt = 0;
+    for (var z = 0; z < DATA.courses.length; z++) if (weekInRanges(week, DATA.courses[z].weekRanges)) cnt++;
+    var mondayTxt = (monday.getMonth() + 1) + "月" + monday.getDate() + "日";
+    var sunday = addDays(monday, 6);
+    $("weekSummary").textContent = "本周共 " + cnt + " 节课 · " + mondayTxt + " – " +
+      (sunday.getMonth() + 1) + "月" + sunday.getDate() + "日" +
+      (realWeek === week ? "（本周）" : "");
+    $("wkRange").textContent = mondayTxt + " – " + (sunday.getMonth() + 1) + "/" + sunday.getDate();
+
+    if (!isFinite(state._matchCache)) { /* noop */ }
+    state._matchCount = matchCount;
+  }
+
+  /* ------------------------------------------------------------------
+     8. 详情弹层
+     ------------------------------------------------------------------ */
+  function openDetail(codeOrUid, uid) {
+    var group = null, entry = null;
+    if (uid) {
+      for (var i = 0; i < DATA.courses.length; i++) if (DATA.courses[i].uid === uid) { entry = DATA.courses[i]; break; }
+    }
+    var key = entry ? (entry.code || entry.name) : codeOrUid;
+    for (var j = 0; j < DATA.courseList.length; j++) {
+      if (DATA.courseList[j].code === key || DATA.courseList[j].name === key) { group = DATA.courseList[j]; break; }
+    }
+    if (!group && entry) {
+      group = { code: entry.code, name: entry.name, shortName: entry.shortName, color: entry.color,
+        entries: [entry], teachers: [entry.teacher], rooms: [entry.room], campuses: [entry.campus], weeks: "" };
+    }
+    if (!group) return;
+
+    var color = group.color || "#888";
+    $("modalHead").style.setProperty("--c", color);
+    $("mTitle").textContent = group.name;
+    $("mTitle").style.color = "";
+    $("mCode").innerHTML = (group.code ? esc(group.code) + " · " : "") + esc(group.weeks || "");
+
+    var body = [];
+    body.push('<div class="kv">');
+    body.push('<div class="k">课程代码</div><div class="v" style="font-family:var(--mono)">' + esc(group.code || "—") + "</div>");
+    body.push('<div class="k">授课教师</div><div class="v">' + esc(group.teachers.filter(Boolean).join(" / ") || "—") + "</div>");
+    body.push('<div class="k">上课地点</div><div class="v">' + esc(group.rooms.filter(Boolean).join(" / ") || "—") + "</div>");
+    body.push('<div class="k">校区</div><div class="v">' + esc(group.campuses.filter(Boolean).join(" / ") || "—") + "</div>");
+    body.push('<div class="k">周次</div><div class="v">' + esc(group.weeks || "全学期") + "</div>");
+    body.push('<div class="k">总条目</div><div class="v">' + group.entries.length + " 条安排明细</div>");
+    body.push("</div>");
+
+    // 以"星期 × 节次"分组汇总
+    body.push('<p class="section-title">每周固定时间</p>');
+    body.push('<div class="kv" style="grid-template-columns:76px 1fr">');
+    var bySlot = {};
+    var slotOrder = [];
+    for (var e = 0; e < group.entries.length; e++) {
+      var en = group.entries[e];
+      var sk = en.day + "-" + en.periodStart + "-" + en.periodEnd + "-" + en.time;
+      if (!bySlot[sk]) { bySlot[sk] = []; slotOrder.push(sk); }
+      bySlot[sk].push(en);
+    }
+    slotOrder.sort(function (a, b) {
+      var A = a.split("-").map(Number), B = b.split("-").map(Number);
+      return A[0] - B[0] || A[1] - B[1];
+    });
+    for (var s = 0; s < slotOrder.length; s++) {
+      var arr = bySlot[slotOrder[s]];
+      var f = arr[0];
+      body.push('<div class="k">' + DAYS[f.day - 1] + "</div><div class='v'>第 " +
+        (f.periodStart === f.periodEnd ? f.periodStart : (f.periodStart + "-" + f.periodEnd)) + " 节 · " +
+        esc(f.time) + " · " + esc(f.room || "—") + (f.isEast ? ' <span class="chip campus-east">云大东陆</span>' : "") + "</div>");
+    }
+    body.push("</div>");
+
+    // 明细表
+    body.push('<p class="section-title" style="margin-top:20px">全部安排明细（周次 / 教师 / 教室 / 时间）</p>');
+    var curWeek = weekIndexOf(startOfDay(new Date()), parseYmd(state.termStart));
+    body.push('<table class="detail"><thead><tr><th>周次</th><th>星期·节次</th><th>教师</th><th>教室</th><th>时间</th></tr></thead><tbody>');
+    for (var t = 0; t < group.entries.length; t++) {
+      var it2 = group.entries[t];
+      var isCur = weekInRanges(curWeek, it2.weekRanges);
+      body.push('<tr class="' + (isCur ? "is-current-week" : "") + '">');
+      body.push('<td class="wk">' + esc(it2.weekText || "全学期") + "</td>");
+      body.push("<td>" + DAYS[it2.day - 1] + " 第 " + (it2.periodStart === it2.periodEnd ? it2.periodStart : (it2.periodStart + "-" + it2.periodEnd)) + " 节</td>");
+      body.push("<td>" + esc(it2.teacher || "—") + "</td>");
+      body.push("<td>" + esc(it2.room || "—") + "<br><span style='font-size:11.5px;color:var(--text-3)'>" + esc(it2.campus || "") + "</span></td>");
+      body.push('<td class="tm">' + esc(it2.time) + "</td>");
+      body.push("</tr>");
+    }
+    body.push("</tbody></table>");
+
+    body.push('<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">');
+    body.push('<button class="wb-btn" id="mSearch">在周视图中筛选</button>');
+    if (group.entries.length) body.push('<button class="wb-btn" id="mToday">看看今天有没有</button>');
+    body.push("</div>");
+
+    $("mBody").innerHTML = body.join("");
+    $("mBody").scrollTop = 0;
+    $("overlay").hidden = false;
+    document.body.style.overflow = "hidden";
+
+    var ms = $("mSearch");
+    if (ms) ms.addEventListener("click", function () {
+      closeDetail();
+      setSearch(group.code || group.name);
+    });
+    var mt = $("mToday");
+    if (mt) mt.addEventListener("click", function () {
+      closeDetail();
+      switchTab("today");
+    });
+  }
+  function closeDetail() {
+    $("overlay").hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  /* ------------------------------------------------------------------
+     9. 搜索
+     ------------------------------------------------------------------ */
+  function searchCourses(q) {
+    q = String(q || "").trim().toLowerCase();
+    if (!q) return [];
+    var hits = [];
+    for (var i = 0; i < DATA.courseList.length; i++) {
+      var g = DATA.courseList[i];
+      var hay = (g.name + " " + g.code + " " + g.teachers.join(" ") + " " + g.rooms.join(" ")).toLowerCase();
+      if (hay.indexOf(q) >= 0) {
+        var score = 0;
+        if (g.name.toLowerCase().indexOf(q) === 0) score += 100;
+        else if (g.name.toLowerCase().indexOf(q) >= 0) score += 50;
+        if (g.code.toLowerCase().indexOf(q) >= 0) score += 40;
+        if (g.teachers.join(" ").toLowerCase().indexOf(q) >= 0) score += 20;
+        if (g.rooms.join(" ").toLowerCase().indexOf(q) >= 0) score += 10;
+        hits.push({ g: g, score: score });
+      }
+    }
+    hits.sort(function (a, b) { return b.score - a.score || a.g.name.localeCompare(b.g.name, "zh"); });
+    return hits.map(function (h) { return h.g; });
+  }
+
+  function renderSearchResults() {
+    var box = $("searchResults");
+    var q = state.q.trim();
+    if (!q) { box.hidden = true; box.innerHTML = ""; return; }
+    var hits = searchCourses(q).slice(0, 12);
+    if (!hits.length) {
+      box.hidden = false;
+      box.innerHTML = '<div class="sr-empty">没找到匹配的课程</div>';
+      return;
+    }
+    var h = [];
+    for (var i = 0; i < hits.length; i++) {
+      var g = hits[i];
+      var slots = [];
+      for (var e = 0; e < g.entries.length && slots.length < 3; e++) {
+        var en = g.entries[e];
+        var sl = DAYS[en.day - 1] + " " + en.time;
+        if (slots.indexOf(sl) < 0) slots.push(sl);
+      }
+      h.push('<button class="sr-item" data-code="' + esc(g.code) + '" role="option">' +
+        '<span class="sr-dot" style="background:' + g.color + '"></span>' +
+        '<span class="sr-main"><span class="sr-name">' + esc(g.name) + "</span>" +
+        '<span class="sr-meta">' + esc(slots.join(" · ")) + (g.teachers.length ? " · " + esc(g.teachers.slice(0, 2).join("/")) : "") + "</span></span>" +
+        '<span class="sr-code">' + esc(g.code) + "</span></button>");
+    }
+    box.innerHTML = h.join("");
+    box.hidden = false;
+  }
+
+  function setSearch(q) {
+    state.q = q;
+    $("q").value = q;
+    $("searchbar").classList.toggle("has-value", !!q);
+    $("q").setAttribute("aria-expanded", q ? "true" : "false");
+    if (q) {
+      // 自动切到整周视图，并跳到该课程有课的周次
+      var hits = searchCourses(q);
+      if (hits.length) {
+        var g0 = hits[0];
+        var target = null;
+        var realWk = weekIndexOf(startOfDay(new Date()), parseYmd(state.termStart));
+        // 优先当前周，其次该课最早出现的周
+        for (var i = 0; i < g0.entries.length; i++) {
+          if (weekInRanges(realWk, g0.entries[i].weekRanges)) { target = realWk; break; }
+        }
+        if (target === null) {
+          for (var w = 1; w <= 18; w++) {
+            for (var j = 0; j < g0.entries.length; j++) {
+              if (weekInRanges(w, g0.entries[j].weekRanges)) { target = w; break; }
+            }
+            if (target !== null) break;
+          }
+        }
+        if (target !== null) state.week = Math.max(1, Math.min(18, target));
+      }
+      if (state.tab !== "week") switchTab("week", true);
+    }
+    renderSearchResults();
+    renderAll();
+    syncURL();
+  }
+
+  /* ------------------------------------------------------------------
+     10. 主题 / 设置
+     ------------------------------------------------------------------ */
+  function applyTheme() {
+    document.documentElement.setAttribute("data-theme", state.theme || "auto");
+    var btn = $("btnTheme");
+    if (btn) btn.textContent = state.theme === "dark" ? "☀️" : (state.theme === "light" ? "🌙" : "🌗");
+  }
+  function loadSettings() {
+    try {
+      var ts = localStorage.getItem(LS.termStart);
+      if (parseYmd(ts)) state.termStart = ts;
+      var th = localStorage.getItem(LS.theme);
+      if (th === "auto" || th === "light" || th === "dark") state.theme = th;
+      var so = localStorage.getItem(LS.showOff);
+      if (so === "0") state.showOffWeek = false;
+      if (so === "1") state.showOffWeek = true;
+      var dov = parseInt(localStorage.getItem(LS.dayOverride) || "0", 10);
+      if (dov >= 1 && dov <= 7) state.dayOverride = dov;
+    } catch (err) { /* localStorage 不可用（file:// 隐私模式等）时静默降级 */ }
+  }
+  function saveSettings() {
+    try {
+      localStorage.setItem(LS.termStart, state.termStart);
+      localStorage.setItem(LS.theme, state.theme);
+      localStorage.setItem(LS.showOff, state.showOffWeek ? "1" : "0");
+      localStorage.setItem(LS.dayOverride, String(state.dayOverride || 0));
+    } catch (err) { /* ignore */ }
+  }
+
+  /* ------------------------------------------------------------------
+     11. URL 深链：?week=5&view=week&q=xxx&day=3&start=2026-08-31
+     ------------------------------------------------------------------ */
+  function readURL() {
+    var sp;
+    try { sp = new URLSearchParams(location.search); } catch (err) { return; }
+    var v = sp.get("view");
+    if (v === "week" || v === "today") state.tab = v;
+    var w = parseInt(sp.get("week") || "", 10);
+    if (w >= 1 && w <= 18) state.week = w;
+    var q = sp.get("q");
+    if (q) { state.q = q; $("q").value = q; $("searchbar").classList.add("has-value"); }
+    var d = parseInt(sp.get("day") || "", 10);
+    if (d >= 1 && d <= 7) state.dayOverride = d;
+    var st = sp.get("start");
+    if (parseYmd(st)) state.termStart = st;
+  }
+  function syncURL() {
+    try {
+      var sp = new URLSearchParams();
+      sp.set("view", state.tab);
+      sp.set("week", String(state.week));
+      if (state.q.trim()) sp.set("q", state.q.trim());
+      if (state.dayOverride) sp.set("day", String(state.dayOverride));
+      if (state.termStart !== DEFAULT_TERM_START) sp.set("start", state.termStart);
+      var qs = sp.toString();
+      // 用 location.pathname + search + hash 重建，保证 file:// 双击打开时也可用
+      history.replaceState(null, "", location.pathname + "?" + qs + (location.hash || ""));
+    } catch (err) { /* file:// 下 replaceState 可能被拒 → 静默降级 */ }
+  }
+
+  /* ------------------------------------------------------------------
+     12. 周次 UI
+     ------------------------------------------------------------------ */
+  function currentRealWeek() { return weekIndexOf(startOfDay(new Date()), parseYmd(state.termStart)); }
+
+  function clampWeek(w) { return Math.max(1, Math.min(18, w)); }
+
+  function renderWeekBar() {
+    var real = currentRealWeek();
+    $("wkLabelNum").textContent = "第 " + state.week + " 周";
+    var isNow = real === state.week;
+    $("wkNow").classList.toggle("primary", !isNow);
+    $("wkNow").classList.toggle("wb-btn", true);
+    $("wkBadge").hidden = !isNow;
+    if (isNow) $("wkBadgeN").textContent = String(state.week);
+    $("wkPrev").disabled = state.week <= 1;
+    $("wkNext").disabled = state.week >= 18;
+    $("wkSelect").value = String(state.week);
+
+    // 顶部时钟
+    var now = new Date();
+    $("clockBadge").textContent = pad2(now.getHours()) + ":" + pad2(now.getMinutes());
+  }
+  function goWeek(w) {
+    state.week = clampWeek(w);
+    renderWeekBar();
+    if (state.tab === "week") renderWeek(); else renderToday();
+    syncURL();
+  }
+
+  /* ------------------------------------------------------------------
+     13. Tab 切换 & 图例
+     ------------------------------------------------------------------ */
+  function switchTab(tab, silent) {
+    state.tab = tab;
+    $("tabToday").setAttribute("aria-selected", tab === "today" ? "true" : "false");
+    $("tabWeek").setAttribute("aria-selected", tab === "week" ? "true" : "false");
+    $("panelToday").hidden = tab !== "today";
+    $("panelWeek").hidden = tab !== "week";
+    if (tab === "week") renderWeek(); else renderToday();
+    syncURL();
+  }
+
+  function renderLegend() {
+    var box = $("legend");
+    if (!box) return;
+    var h = ["<h4>课程图例（点击查看详情）</h4>"];
+    for (var i = 0; i < DATA.courseList.length; i++) {
+      var g = DATA.courseList[i];
+      h.push('<button class="legend-item" data-code="' + esc(g.code) + '">' +
+        '<span class="legend-dot" style="background:' + g.color + '"></span>' +
+        '<span class="lg-name">' + esc(g.name) + "</span>" +
+        '<span class="lg-code">' + esc(g.code) + "</span></button>");
+    }
+    box.innerHTML = h.join("");
+  }
+
+  /* ------------------------------------------------------------------
+     14. 一次性重建
+     ------------------------------------------------------------------ */
+  function renderAll() {
+    renderToday();
+    if (state.tab === "week") renderWeek();
+    renderWeekBar();
+  }
+
+  /* ------------------------------------------------------------------
+     15. 事件绑定
+     ------------------------------------------------------------------ */
+  function bind() {
+    // 时钟：每分钟刷新
+    function tick() {
+      var n = new Date();
+      state.nowMin = n.getHours() * 60 + n.getMinutes();
+      state.todayDow = isoDow(n);
+      var real = currentRealWeek();
+      $("clockBadge").textContent = pad2(n.getHours()) + ":" + pad2(n.getMinutes());
+      if (state.tab === "today") renderToday();
+      else renderWeek();
+      // 「本周」按钮状态
+      $("wkNow").classList.toggle("primary", real !== state.week);
+      $("wkBadge").hidden = real !== state.week;
+      $("wkBadgeN").textContent = String(state.week);
+    }
+    tick();
+    // 对齐到整分钟后再开始 60s 心跳
+    var msToNextMin = 60000 - (Date.now() % 60000);
+    setTimeout(function () { tick(); setInterval(tick, 60000); }, msToNextMin + 50);
+    // 页面重新可见时立刻刷新（手机切回来）
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) tick();
+    });
+
+    // Tabs
+    $("tabToday").addEventListener("click", function () { switchTab("today"); });
+    $("tabWeek").addEventListener("click", function () { switchTab("week"); });
+
+    // 周次
+    $("wkPrev").addEventListener("click", function () { goWeek(state.week - 1); });
+    $("wkNext").addEventListener("click", function () { goWeek(state.week + 1); });
+    $("wkNow").addEventListener("click", function () {
+      var real = currentRealWeek();
+      if (real >= 1 && real <= 18) goWeek(real);
+      else { goWeek(clampWeek(real) || 1); toast("当前日期不在 1-18 教学周内"); }
+    });
+    $("btnLocate").addEventListener("click", function () {
+      var real = currentRealWeek();
+      goWeek(clampWeek(real));
+      switchTab("today");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      toast("已回到第 " + clampWeek(real) + " 周 · 今天");
+    });
+    var sel = $("wkSelect");
+    for (var w = 1; w <= 18; w++) {
+      var o = document.createElement("option");
+      o.value = String(w);
+      o.textContent = "第 " + w + " 周";
+      sel.appendChild(o);
+    }
+    sel.addEventListener("change", function () { goWeek(parseInt(sel.value, 10)); });
+
+    // 搜索
+    var qEl = $("q"), timer = null;
+    qEl.addEventListener("input", function () {
+      var v = qEl.value;
+      $("searchbar").classList.toggle("has-value", !!v);
+      state.q = v;
+      renderSearchResults();
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (state.tab === "week") renderWeek();
+        syncURL();
+      }, 180);
+    });
+    qEl.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        var first = $("searchResults").querySelector(".sr-item");
+        if (first) { doSearchPick(first.getAttribute("data-code")); }
+        else if (state.q.trim()) { switchTab("week"); toast("在整周视图中高亮匹配课程"); }
+      } else if (e.key === "Escape") { clearSearch(); }
+    });
+    $("qClear").addEventListener("click", clearSearch);
+    $("searchResults").addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest(".sr-item") : null;
+      if (btn) doSearchPick(btn.getAttribute("data-code"));
+    });
+    document.addEventListener("click", function (e) {
+      if (!$("searchbar").contains(e.target)) $("searchResults").hidden = true;
+    });
+
+    // 网格 / 卡片点击
+    document.addEventListener("click", function (e) {
+      var blk = e.target.closest ? e.target.closest(".blk") : null;
+      if (blk) { openDetail(blk.getAttribute("data-code"), blk.getAttribute("data-uid")); return; }
+      var det = e.target.closest ? e.target.closest(".js-detail") : null;
+      if (det) { openDetail(det.getAttribute("data-code"), det.getAttribute("data-uid")); return; }
+      var lg = e.target.closest ? e.target.closest(".legend-item") : null;
+      if (lg) { openDetail(lg.getAttribute("data-code")); return; }
+    });
+
+    // 详情开关
+    $("mClose").addEventListener("click", closeDetail);
+    $("overlay").addEventListener("click", function (e) { if (e.target === $("overlay")) closeDetail(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        if (!$("overlay").hidden) closeDetail();
+        else if (!$("sheet").hidden) toggleSheet(false);
+        else if (state.q) clearSearch();
+      }
+      // 左右方向键翻周
+      if (e.key === "ArrowLeft" && e.altKey) goWeek(state.week - 1);
+      if (e.key === "ArrowRight" && e.altKey) goWeek(state.week + 1);
+    });
+
+    // 设置面板
+    $("btnSettings").addEventListener("click", function (e) { e.stopPropagation(); toggleSheet($("sheet").hidden); });
+    $("sheetBg").addEventListener("click", function () { toggleSheet(false); });
+    $("sheet").addEventListener("click", function (e) { e.stopPropagation(); });
+
+    var tsInput = $("termStart");
+    tsInput.value = state.termStart;
+    tsInput.addEventListener("change", function () {
+      if (!parseYmd(tsInput.value)) { toast("日期格式不正确"); return; }
+      state.termStart = tsInput.value;
+      saveSettings();
+      // 周次会变，重新定位
+      var real = currentRealWeek();
+      state.week = clampWeek(real >= 1 ? real : 1);
+      renderAll();
+      syncURL();
+      toast("已设置第 1 教学周起始日：" + state.termStart);
+    });
+
+    var dov = $("dayOverride");
+    (function () {
+      var o0 = document.createElement("option");
+      o0.value = "0"; o0.textContent = "自动（真实今天）";
+      dov.appendChild(o0);
+      for (var d = 1; d <= 7; d++) {
+        var o = document.createElement("option");
+        o.value = String(d); o.textContent = "周" + "一二三四五六日".charAt(d - 1);
+        dov.appendChild(o);
+      }
+      dov.value = String(state.dayOverride || 0);
+      dov.addEventListener("change", function () {
+        state.dayOverride = parseInt(dov.value, 10) || 0;
+        saveSettings(); renderAll(); syncURL();
+      });
+    })();
+
+    var thSel = $("themeSel");
+    thSel.value = state.theme;
+    thSel.addEventListener("change", function () {
+      state.theme = thSel.value; applyTheme(); saveSettings();
+    });
+    $("btnTheme").addEventListener("click", function () {
+      var order = ["auto", "light", "dark"];
+      var i = order.indexOf(state.theme);
+      state.theme = order[(i + 1) % 3];
+      thSel.value = state.theme;
+      applyTheme(); saveSettings();
+      toast(state.theme === "auto" ? "外观：跟随系统" : (state.theme === "dark" ? "外观：深色" : "外观：浅色"));
+    });
+    $("btnReset").addEventListener("click", function () {
+      state.termStart = DATA.termStart || DEFAULT_TERM_START;
+      state.theme = "auto";
+      state.showOffWeek = true;
+      state.dayOverride = 0;
+      state.q = "";
+      $("q").value = ""; $("searchbar").classList.remove("has-value");
+      $("searchResults").hidden = true;
+      tsInput.value = state.termStart; thSel.value = "auto"; dov.value = "0";
+      $("showOff").checked = true;
+      applyTheme(); saveSettings();
+      state.week = clampWeek(currentRealWeek() || 1);
+      renderAll(); syncURL();
+      toast("已恢复默认设置");
+    });
+
+    // 非本周开关
+    var so = $("showOff");
+    so.checked = state.showOffWeek;
+    so.addEventListener("change", function () {
+      state.showOffWeek = so.checked; saveSettings(); renderWeek();
+    });
+
+    // 系统主题变化
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      var onSys = function () { if (state.theme === "auto") applyTheme(); };
+      if (mq.addEventListener) mq.addEventListener("change", onSys);
+      else if (mq.addListener) mq.addListener(onSys);
+    }
+
+    // 窗口尺寸变化后重绘（±键提示）——交给 CSS 即可，无需 JS
+  }
+
+  function clearSearch() {
+    state.q = "";
+    $("q").value = "";
+    $("searchbar").classList.remove("has-value");
+    $("q").setAttribute("aria-expanded", "false");
+    $("searchResults").hidden = true;
+    $("searchResults").innerHTML = "";
+    renderAll();
+    syncURL();
+  }
+  function doSearchPick(code) {
+    $("searchResults").hidden = true;
+    if (state.tab !== "week") switchTab("week", true);
+    else renderWeek();
+    // 滚动到第一个匹配块
+    var blk = document.querySelector('.blk.is-match');
+    if (blk) blk.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    var g = null;
+    for (var i = 0; i < DATA.courseList.length; i++) if (DATA.courseList[i].code === code) { g = DATA.courseList[i]; break; }
+    if (g) toast("已定位到「" + g.name + "」");
+  }
+  function toggleSheet(show) {
+    $("sheet").hidden = !show;
+    $("sheetBg").hidden = !show;
+    $("btnSettings").setAttribute("aria-expanded", show ? "true" : "false");
+  }
+  var toastTimer = null;
+  function toast(msg) {
+    var el = $("toast");
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.hidden = true; }, 2200);
+  }
+
+  /* ------------------------------------------------------------------
+     16. 启动
+     ------------------------------------------------------------------ */
+  function boot() {
+    // 放在这里初始化：此时上面所有常量（PERIOD_COUNT / *_SLOTS / CODE_COLORS）都已赋值。
+    DATA = normalizeData(RAW_DATA);
+    DBG = DATA.dbg || [];
+    loadSettings();
+    readURL();
+    applyTheme();
+    $("semSub").textContent = DATA.courses.length + " 条课程安排 · 9 门课";
+    $("footCount").textContent = DATA.courses.length + " 条安排 · " + DATA.courseList.length + " 门课程" +
+      (DBG.length ? " · " + DBG.length + " 条被跳过" : "");
+    var n = new Date();
+    state.nowMin = n.getHours() * 60 + n.getMinutes();
+    state.todayDow = isoDow(n);
+    var real = currentRealWeek();
+    state.week = clampWeek(real >= 1 ? real : (state.week || 1));
+
+    // 窄屏默认「今天」
+    if (window.innerWidth <= 700 && !/[?&]view=week/.test(location.search)) state.tab = "today";
+
+    renderLegend();
+    bind();
+    switchTab(state.tab, true);
+    renderWeekBar();
+    syncURL();
+
+    // 暴露给自动化测试使用（不影响功能）
+    window.__KB__ = {
+      data: DATA,
+      state: state,
+      live: function () { return liveTick; },
+      switchTab: switchTab,
+      goWeek: goWeek,
+      setSearch: setSearch,
+      openDetail: openDetail,
+      renderAll: renderAll,
+      version: "1.0"
+    };
+    if (DBG.length && window.console) console.warn("[课表] 跳过的条目：", DBG);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
+</body>
+</html>
